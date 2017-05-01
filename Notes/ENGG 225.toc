@@ -1,0 +1,108 @@
+\contentsline {section}{\numberline {1}January 9, 2017}{5}{section.1}
+\contentsline {subsection}{\numberline {1.1}Circuits, Currents, and Voltages}{5}{subsection.1.1}
+\contentsline {section}{\numberline {2}January 11, 2017}{6}{section.2}
+\contentsline {subsection}{\numberline {2.1}Ideal Basic Circuit Elements}{6}{subsection.2.1}
+\contentsline {section}{\numberline {3}January 13, 2017}{8}{section.3}
+\contentsline {subsection}{\numberline {3.1}Ideal Basic Circuit Elements Cont'd}{8}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Power and Energy}{8}{subsection.3.2}
+\contentsline {section}{\numberline {4}January 16, 2017}{9}{section.4}
+\contentsline {subsection}{\numberline {4.1}Power and Energy Cont'd}{9}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Kirchhoff's Laws}{11}{subsection.4.2}
+\contentsline {section}{\numberline {5}January 18, 2017}{12}{section.5}
+\contentsline {subsection}{\numberline {5.1}Kirchhoff's Laws Cont'd}{12}{subsection.5.1}
+\contentsline {section}{\numberline {6}January 20, 2017}{13}{section.6}
+\contentsline {subsection}{\numberline {6.1}Resistive Circuits}{13}{subsection.6.1}
+\contentsline {section}{\numberline {7}January 23, 2017}{15}{section.7}
+\contentsline {subsection}{\numberline {7.1}Circuit Analysis Using Series-Parallel Equivalents}{15}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Other Simple Resistor Circuits - Voltage and Current Dividers}{16}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Node-Voltage Analysis}{18}{subsection.7.3}
+\contentsline {section}{\numberline {8}January 25, 2017}{18}{section.8}
+\contentsline {subsection}{\numberline {8.1}Node-Voltage Analysis Procedure}{18}{subsection.8.1}
+\contentsline {section}{\numberline {9}January 27, 2017}{20}{section.9}
+\contentsline {subsection}{\numberline {9.1}Node-Voltage Analysis Examples}{20}{subsection.9.1}
+\contentsline {section}{\numberline {10}January 30, 2017}{22}{section.10}
+\contentsline {subsection}{\numberline {10.1}Node-Voltage Analysis Examples Cont'd}{22}{subsection.10.1}
+\contentsline {subsection}{\numberline {10.2}Node-Voltage Method - Special Case}{22}{subsection.10.2}
+\contentsline {section}{\numberline {11}February 1, 2017}{26}{section.11}
+\contentsline {subsection}{\numberline {11.1}Mesh-Current Method}{26}{subsection.11.1}
+\contentsline {section}{\numberline {12}February 3, 2017}{27}{section.12}
+\contentsline {subsection}{\numberline {12.1}Mesh-Current Analysis Procedure}{27}{subsection.12.1}
+\contentsline {section}{\numberline {13}February 6, 2017}{28}{section.13}
+\contentsline {subsection}{\numberline {13.1}Mesh-Current Analysis Examples}{28}{subsection.13.1}
+\contentsline {subsection}{\numberline {13.2}Mesh-Current Analysis - Special Case}{29}{subsection.13.2}
+\contentsline {section}{\numberline {14}February 8, 2017}{30}{section.14}
+\contentsline {subsection}{\numberline {14.1}Supermesh Examples}{30}{subsection.14.1}
+\contentsline {subsection}{\numberline {14.2}Summary of Node-Voltage and Mesh-Current Methods}{31}{subsection.14.2}
+\contentsline {subsection}{\numberline {14.3}Thevenin and Norton Equivalent Circuits}{31}{subsection.14.3}
+\contentsline {section}{\numberline {15}February 10, 2017}{31}{section.15}
+\contentsline {subsection}{\numberline {15.1}Thevenin Circuits}{31}{subsection.15.1}
+\contentsline {section}{\numberline {16}February 13, 2017}{32}{section.16}
+\contentsline {subsection}{\numberline {16.1}Thevenin Circuit Examples}{32}{subsection.16.1}
+\contentsline {subsection}{\numberline {16.2}Shortcut Method for Thevenin Resistance}{33}{subsection.16.2}
+\contentsline {section}{\numberline {17}February 15, 2017}{35}{section.17}
+\contentsline {subsection}{\numberline {17.1}Thevenin Equivalent Circuits Conclusion}{35}{subsection.17.1}
+\contentsline {subsection}{\numberline {17.2}Principle of Superposition}{36}{subsection.17.2}
+\contentsline {section}{\numberline {18}February 27, 2017}{37}{section.18}
+\contentsline {subsection}{\numberline {18.1}Principle of Superposition Cont'd}{37}{subsection.18.1}
+\contentsline {subsection}{\numberline {18.2}Operational Amplifiers}{38}{subsection.18.2}
+\contentsline {subsection}{\numberline {18.3}Key Properties - Summing-Point Constraints}{38}{subsection.18.3}
+\contentsline {subsection}{\numberline {18.4}Applying Summing-Point Constraints}{40}{subsection.18.4}
+\contentsline {section}{\numberline {19}March 1, 2017}{40}{section.19}
+\contentsline {subsection}{\numberline {19.1}Op-Amp Circuits Cont'd}{40}{subsection.19.1}
+\contentsline {section}{\numberline {20}March 3, 2017}{42}{section.20}
+\contentsline {subsection}{\numberline {20.1}Op-Amp circuits Cont'd}{42}{subsection.20.1}
+\contentsline {section}{\numberline {21}March 6, 2017}{43}{section.21}
+\contentsline {subsection}{\numberline {21.1}Examples of Other Op-Amp Circuits}{43}{subsection.21.1}
+\contentsline {subsection}{\numberline {21.2}Input Resistance of Op-Amp Circuits}{45}{subsection.21.2}
+\contentsline {subsection}{\numberline {21.3}Another Application of Op-Amps - Comparators}{46}{subsection.21.3}
+\contentsline {section}{\numberline {22}March 8, 2017}{46}{section.22}
+\contentsline {subsection}{\numberline {22.1}Inductors and Capacitors}{46}{subsection.22.1}
+\contentsline {subsection}{\numberline {22.2}Power and Energy in the Capacitor}{47}{subsection.22.2}
+\contentsline {subsection}{\numberline {22.3}Capacitances in Series and Parallel}{48}{subsection.22.3}
+\contentsline {section}{\numberline {23}March 10, 2017}{48}{section.23}
+\contentsline {subsection}{\numberline {23.1}Capacitances in Series and Parallel Cont'd}{48}{subsection.23.1}
+\contentsline {subsection}{\numberline {23.2}Inductors}{49}{subsection.23.2}
+\contentsline {subsection}{\numberline {23.3}Power and Energy in the Inductor}{50}{subsection.23.3}
+\contentsline {subsection}{\numberline {23.4}Inductors in Series and Parallel}{50}{subsection.23.4}
+\contentsline {subsection}{\numberline {23.5}Steady State Sinusoidal Analysis}{52}{subsection.23.5}
+\contentsline {subsection}{\numberline {23.6}Sinusoidal Currents and Voltages}{52}{subsection.23.6}
+\contentsline {subsection}{\numberline {23.7}Root-Mean-Square Values}{52}{subsection.23.7}
+\contentsline {subsection}{\numberline {23.8}Relating to DC Circuits}{53}{subsection.23.8}
+\contentsline {section}{\numberline {24}March 15, 2017}{54}{section.24}
+\contentsline {subsection}{\numberline {24.1}Phasors}{54}{subsection.24.1}
+\contentsline {subsection}{\numberline {24.2}Complex Numbers Review}{55}{subsection.24.2}
+\contentsline {subsection}{\numberline {24.3}KVL and KCL Using Phasors}{56}{subsection.24.3}
+\contentsline {subsection}{\numberline {24.4}Summary of Phasor Summation Method}{57}{subsection.24.4}
+\contentsline {section}{\numberline {25}March 20, 2017}{58}{section.25}
+\contentsline {subsection}{\numberline {25.1}Phase Relationship Between Sinusoids}{58}{subsection.25.1}
+\contentsline {subsection}{\numberline {25.2}Complex Impendances}{58}{subsection.25.2}
+\contentsline {subsection}{\numberline {25.3}Summary of Impedances}{60}{subsection.25.3}
+\contentsline {subsection}{\numberline {25.4}Circuit Analysis With Phasors and Complex Impedances}{60}{subsection.25.4}
+\contentsline {section}{\numberline {26}March 22, 2017}{61}{section.26}
+\contentsline {subsection}{\numberline {26.1}Complex Impedance Examples}{61}{subsection.26.1}
+\contentsline {section}{\numberline {27}March 24, 2017}{63}{section.27}
+\contentsline {subsection}{\numberline {27.1}Thevenin Equivalent AC Circuits}{63}{subsection.27.1}
+\contentsline {section}{\numberline {28}March 17, 2017}{64}{section.28}
+\contentsline {subsection}{\numberline {28.1}Frequency Dependent Circuits}{64}{subsection.28.1}
+\contentsline {section}{\numberline {29}March 29, 2017}{65}{section.29}
+\contentsline {subsection}{\numberline {29.1}Superposition in AC Circuits}{65}{subsection.29.1}
+\contentsline {subsection}{\numberline {29.2}Power in AC Circuits}{66}{subsection.29.2}
+\contentsline {section}{\numberline {30}March 31, 2017}{68}{section.30}
+\contentsline {subsection}{\numberline {30.1}Power in AC Circuits Example}{68}{subsection.30.1}
+\contentsline {subsection}{\numberline {30.2}The Power Triangle and Other Power Relationships}{69}{subsection.30.2}
+\contentsline {section}{\numberline {31}April 3, 2017}{71}{section.31}
+\contentsline {subsection}{\numberline {31.1}DC Motors}{71}{subsection.31.1}
+\contentsline {subsection}{\numberline {31.2}Operating Characteristics of Motors}{72}{subsection.31.2}
+\contentsline {subsection}{\numberline {31.3}Speed Regulation}{72}{subsection.31.3}
+\contentsline {section}{\numberline {32}April 5, 2017}{73}{section.32}
+\contentsline {subsection}{\numberline {32.1}Electrical Circuit of DC Motors}{73}{subsection.32.1}
+\contentsline {subsection}{\numberline {32.2}Magnetization Curve}{73}{subsection.32.2}
+\contentsline {subsection}{\numberline {32.3}Power and Torque: Developed vs. Output}{75}{subsection.32.3}
+\contentsline {section}{\numberline {33}April 7, 2017}{75}{section.33}
+\contentsline {subsection}{\numberline {33.1}Shunt-Connected DC Machines}{75}{subsection.33.1}
+\contentsline {subsection}{\numberline {33.2}Separately Excited DC Machines}{77}{subsection.33.2}
+\contentsline {subsection}{\numberline {33.3}Permanent-Magnet DC Motors}{77}{subsection.33.3}
+\contentsline {subsection}{\numberline {33.4}Series-Connected DC Motors}{77}{subsection.33.4}
+\contentsline {subsection}{\numberline {33.5}Torque-Speed Characteristics}{77}{subsection.33.5}
+\contentsline {section}{\numberline {34}Monday April 10, 2017}{78}{section.34}
+\contentsline {subsection}{\numberline {34.1}Formulas for Final Exam}{78}{subsection.34.1}

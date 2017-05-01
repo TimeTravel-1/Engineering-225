@@ -1,0 +1,1864 @@
+\documentclass[11pt]{article}
+
+%%%%%%%%%%%%%% LATEX SAMPLE FILE %%%%%%%%%%%%%%%%
+% A line which starts with a % sign
+% is called a COMMENT. It is IGNORED
+% by the LaTeX processor.
+
+% Include math
+\usepackage{amsmath,amsthm,amssymb}
+% Include links
+\usepackage{hyperref}
+
+
+%%%%%%%%%%%%%  THEOREMS  %%%%%%%%%%%%%%%%%
+% Let's define some theorem environments
+% To use later in the paper
+\theoremstyle{plain} % other options: definition, remark
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+% By including [theorem], the lemma follows the numbering of theorem
+% e.g. Thm 1, Lemma 2, Thm 3, Thm 4, \dots
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition} % the star prevents numbering
+
+\theoremstyle{example}
+\newtheorem*{example}{Example}
+% Remarks
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\DeclareMathOperator{\sinc}{sinc}
+
+
+%%%%%%%%%%%%%%  PAGE SETUP %%%%%%%%%%%%%%%%%
+% LaTeX has big default margins
+% The following sets them to 1in
+\usepackage[margin=1.5in]{geometry}
+\usepackage{steinmetz}
+
+% The following sets up some headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Fundamentals of Electrical Circuits and Machines} % Left Header
+\rhead{\thepage} % Right Header
+\cfoot{} % Center Foot (empty)
+
+
+
+
+
+
+%%%%%%%%%%%%% SHORTCUTS %%%%%%%%%%%%%%%%%%%%
+% You can define your own shortcuts too.
+% Examples of custom commands
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\cbrt}[1]{\sqrt[3]{#1}}
+\newcommand{\degree}{^{\circ}}
+
+\begin{document}
+
+% Set up a title
+\title{ENGG 225}
+\author{David Ng}
+\date{Winter 2017}
+\maketitle
+
+% This line makes a ToC
+\tableofcontents
+
+% This line starts a new page
+\eject
+
+%%%%%%%%%%%%% January 11 %%%%%%%%%%%%%%%%%%%%
+
+\section{January 9, 2017}
+\subsection{Circuits, Currents, and Voltages}
+
+The concept of electric charge is the basis for describing all electrical phenomenon. Charge exists in discrete quantities at integer multiples of $6.022 \times 10^{-19} \text{ Coulombs}$.
+We note that this is the charge of one electron. An \textbf{electric circuit} is an interconnection of circuit elements connected in closed paths 
+by conductors. The following are common components of circuits:
+
+\begin{enumerate}
+	\item A \textbf{voltage source} is denoted by a circle encompassing a plus-minus sign. It is the supplier of energy. 
+	\item A \textbf{resistor} is denoted by a zigzag line.
+	\item An \textbf{inductor} is denoted by a coil of wire. An inductor is used to store energy in the magnetic field. 
+	\item A \textbf{capacitor} is denoted by a pair of plates. A capacitor is used to store energy in the electric field. 
+	\item A \textbf{connection point} is denoted by a dot where the circuit elements meet. 
+	\item A \textbf{conductor} is denoted by lines. These are most commonly wires. 
+\end{enumerate}
+
+Two fundamentally important electrical quantities are current and voltage. \textbf{Electric current} is the rate of flow of electric charge, and is given by 
+$$i(t) = \frac{\mathrm d q(t)}{\mathrm d t},$$
+where $i(t)$ denotes the current in Amperes ($A$), $q(t)$ denotes the charge in Coulombs ($C$), and $t$ denotes the time in seconds ($s$). That is, $1 \text{ A} = 1 \text{ C}/s$. Given $i(t)$, one can also find the total charge $q(t)$ by solving the integral
+$$q(t) = \int_{t_0}^ti(t) \mathrm d t + q(t_0).$$
+We normally assign reference directions for current, each shown in a circuit diagram as an arrow in the indicated direction. We note that we can choose reference directions arbitrarily. For instance, it the current flow is actually in the opposite direction, then the value of $i$ is simply opposite in sign. 
+
+We have \textbf{direct current} (DC) and \textbf{alternating current} (AC). In a graph of current versus time, a direct current is a constant value, whereas an alternating current takes a form similar to a sine wave. DC is used in energy sources such as batteries, while AC is used for house voltage. We make use of some common notation in our discussion of current. Around a circuit element $A$, the current flows in direction $i_A$ in an arbitrary direction. Around a circuit element $A$ in between nodes $a$ and $b$, the current flows in direction $i_{ab}$ (from node $a$ to node $b$), or in direction $i_{ba} = -i_{ab}$.
+
+\textbf{Voltage} is the energy transferred to a circuit element per unit of charge flowing through it, and is given by 
+$$V(t) = \frac{\mathrm d W(t)}{\mathrm d q(t)},$$
+where $V(t)$ denotes the voltage in Volts ($V$), $W(t)$ denotes energy in Joules ($J$), and $q(t)$ denotes charge. That is, $1 \text{ V} = 1 \text{ J}/C$. Voltages are assigned polarities to indicate the direction of energy flow. A diagram consisting of a ``$-$'', followed by a circuit element $A$, followed by a ``$+$" with $i$ in the opposite direction indicates that energy is absorbed by $A$. When $i$ flows in the same direction from left to right, then energy is supplied by $A$. 
+
+For analysis purposes, we assign arbitrary reference polarities to each circuit element, with the ``$-$" and ``$+$" in arbitrary positions on either side of the circuit element. If polarity is opposite, the value of $V$ is then simply of opposite sign. We make use of some common notation in our discussion of voltage. Around a circuit element $A$, the voltage denoted by $V_A$ with the positive and negative terminals on either side in an arbitrary order. Around a circuit element $A$ in between nodes $a$ and $b$, the voltage $V_{ab}$ always has the first subscript positioned on the positive terminal. Thus, $V_{ba} = -V_{ab}$ has the positive terminal at node $b$ as opposed to node $a$. 
+
+\section{January 11, 2017}
+\subsection{Ideal Basic Circuit Elements}
+
+Here, we will talk about conductors sources, and resistors. Later, we will bring in inductors and capacitors. All circuit elements are characterized by their \textbf{voltage-current} relationship. 
+
+\textbf{Conductors} are described by a blank rectangle with appropriately labelled current and voltage. It can also be expressed as a single line with the appropriately labelled current and voltage, with the additional note that $V=0$. From this, we can define a conductor \textbf{short circuit}, which is between two points ``shorted" together. The absence of a conductor between circuit elements is an \textbf{open circuit}
+
+\textbf{Sources} can be categorized as independent voltage sources, dependent voltage sources, independent current sources, and dependent current sources. \newline\textbf{Independent voltage sources} are represented as independent voltage sources. Symbolically, they are represented with a current and a numerical value associated with voltage around a circle with $+$ and $-$. A DC source has a constant voltage value ($30$ $V$ for instance), whereas an AC source has a variable voltage ($100 \sin(120\pi t)$ for instance). We note the following properties for voltage sources:
+\begin{itemize}
+	\item Voltage is specified explicitly. It is not dependent on any external factors. 
+	\item Voltage is unchanged by whatever it is connected to. For instance, voltage is independent of the current through it. 
+\end{itemize}
+\textbf{Dependent voltage sources} have the same properties as independent sources, but the value of the voltage depends on either a voltage or a current elsewhere in the circuit. VCVS (voltage-controlled voltage source) are represented as a diamond shape with $+$ and $-$. The voltage is written as $\mu V_x$ where $\mu$ is the constant, and $V_x$ is the controlling voltage. CCVS (current-controlled voltage source) on the other hand, are represented with the same shape, but with the current $\mu i_x$, where $i_x$ is the controlling current. These can both be DC or AC as well. We note that in these cases, $V_x$ and $i_x$ are specified elsewhere in the circuit. 
+\newline
+\textbf{Independent current sources} are represented with appropriately labelled voltage around a circle with an arrow pointing in one direction along a conductor. Its current could be labelled for instance, as $10$ $A$, or $100 \cos(120\pi t)$. We note the following properties for current sources:
+\begin{itemize}	
+	\item Current is specified explicitly. That is, it is not dependent on external factors.
+	\item Current is unchanged by whatever it is connected to. For instance, current is independent of the voltage across it. 
+\end{itemize}
+\textbf{Dependent current sources} have the same properties as their independent counterparts, except their current depends on a voltage or current elsewhere. VCCS (voltage-controlled current source)is represented by a diamond shape with an arrow pointing towards the direction of the conductor. It is labelled as $\mu V_x$, where $\mu$ is a constant, and $V_x$ is the controlling voltage. CCCS (current-controlled current source) is represented with the same shape, but with current $\mu i_x$, where $i_x$ is the controlling current. 
+
+\textbf{Resistors} are represented with a zigzag within the conductor labelled $R$, with appropriately labelled current and voltage. Resistance is measured in Ohms ($\Omega$). $R$ is a constant. We note the property that voltage and current are related by \textbf{Ohm's Law},
+$$V = iR.$$
+It is important to note that the direction of $i$ and the polarity of $V$, are defined as shown for  Ohm's Law. That is, the resistor is always absorbing energy. If we plot $V$ on the y axis with $i$ on the x axis, then the slope is equal to $R$. This results as a consequence of Ohm's Law. If we had instead labelled the resistor with current flowing from left to right, with voltage being $-$ to $+$, then Ohm's Law states that $V = -iR$. 
+
+\section{January 13, 2017}
+
+\subsection{Ideal Basic Circuit Elements Cont'd}
+
+\textbf{Conductance} is related by Ohm's Law. Since $V = iR$, this can be rearranged so that $$i = \left(\frac{1}{R}\right)V,$$
+where conductance $G = \left(\frac{1}{R}\right)$. The SI units of conductance is Siemens (
+$\Omega^{-1}$).
+
+\begin{remark} The unit of conductance was once mho ($\mho$)!
+\end{remark}
+
+\subsection{Power and Energy}
+
+\textbf{Power} is the product of voltage and current. That is, 
+$$P = Vi,$$
+which we may also express as 
+$$P = \frac{\mathrm d w}{\mathrm d q} \times \frac{\mathrm d q}{\mathrm d t} = \frac{\mathrm d W}{\mathrm d t},$$
+where $P$ is the power in Watts ($W$), $W$ is the energy in Joules, $q$ is the charge in Coulombs, and $t$ is the time in seconds. Thus, power is the rate of energy transfer. 
+
+We define power in terms of the \textbf{passive reference convention}. In this convention, current reference direction is the same direction as a voltage drop (from $+$ to $-$). This implies that the circuit element absorbs power. For this scenario, $P = Vi$. If either current reference direction or voltage reference polarity is reversed, then we must use $P = -Vi$, which is the \textbf{active reference convention}. This is the case when current reference direction is in the direction of a voltage rise from $-$ to $+$. 
+
+\begin{example}
+Find the power in the circuit element given that the reference direction of $i$ corresponds to the voltage rise from $-$ to $+$. Given that $i = 10A$ and $V=12V$, and then for $i = -10A$ and $V = 60V$.
+\end{example}
+
+We note that in either case, this corresponds to an active reference convention. Thus, we use the formula $P = -Vi$. In the first case, substituting values gives $P = -120W$. In the second case, we obtain $600W$. 
+
+Our physical interpretation of the sign of $P$ is therefore that the circuit element absorbs power when $P > 0$, and the circuit element delivers power when $P < 0$. That is, in a circuit, depending on where $+$ and $-$ are placed with regards to each circuit element, since the current flows in one direction, we can use the formulas where $P = Vi$ and $P = -Vi$ to determine whether circuit element is delivering or absorbing energy. 
+
+In a resistor, we can apply our formulas to obtain an expression for power. By passive reference convention, we have $P = Vi$ and by Ohm's Law, we have $V = iR$. Substituting this expression of $V$, we obtain 
+$$P = (iR)i = i^2R.$$
+We note that this is always positive, since a resistor is always absorbing power. 
+
+\textbf{Energy} can be determined by integrating the expression of power with respect to time. Since $P = \frac{\mathrm d W}{\mathrm d t}$, we get
+$$W = \int_{t_1}^{t_2}P(t)\mathrm d t + W(t_1).$$
+Power companies measure energy to determine our monthly bills. The cost is determined by how much power is used over time. 
+
+\begin{example}
+Suppose we are given a circuit with $i(t) = 2e^{-t}A$ flowing in the voltage direction from $+$ to $-$, where $V(t) = 10V$. Compute the power, compute energy from $t=0\rightarrow \infty$, and then determine whether energy is absorbed or delivered. 
+\end{example}
+We recall that $P = Vi$. Therefore, $P(t) = (10V)(2e^{-t}A) = 20e^{-t}W$. To determine the energy consumed, we make use of the expression for energy. We obtain
+\begin{align*}
+W &= \int_0^{\infty}P(t) \mathrm d t \\
+&= \int_0^{\infty}20e^{-t}\mathrm d t\\
+&= -20e^{-t}\Big|_0^{\infty}\\
+&= 0 - (-20)\\
+&= 20 J
+\end{align*}
+Lastly, we note that $W$is positive, so the circuit element is absorbing energy. 
+
+\section{January 16, 2017}
+
+\subsection{Power and Energy Cont'd}
+
+In a circuit, depending on where $+$ and $-$ are placed with regards to each circuit element, since the current flows in one direction, we can use the formulas where $V = -iR$, $P =V i
+$ and $P = -V i$ to determine whether circuit element is delivering or absorbing energy. Suppose for instance that we know our power source to be at $100V$ and the resistor in the circuit to be at $10 \Omega$. Then $V = -iR$, so $i = -\frac{V}{R}$. Substituting these values, we get $i = -\frac{100V}{10\Omega} = -10A$. In the source, we use passive reference convention to note that $P = Vi = (100V)(-10A) = -1000W$ delivered, while in the resistor, $P = -Vi = -(100V)(-10A)= 1000W$ consumed. 
+
+\begin{example}
+Assume that energy cost is $\$0.12$ per kilowatt-hour ($kWh$). The electric bill for 30 days is $\$60.00$, with the power being constant over this time. Determine the power in watts. Given that voltage is $120V$, determine the current. Lastly, determine how much energy is saved (in percent) by removing $60W$. 
+\end{example}
+First, we note that the energy consumed over the 30 days is 
+$$W = \$60.00/\$0.12 = 500kWh.$$
+Since power is constant over this time, it implies that on a power vs time graph, the use of power over the 30 days is constant. Thus, since power is the slope on an energy vs time graph, we have $W(t) = \int_0^t P\mathrm d t = Pt$. Rearranging for power gives
+\begin{align*}
+	P &= \frac{W}{t} \\
+	&= \frac{500kWh}{30 \text{ days}} \\
+	&= \frac{500000Wh}{30\times24h}\\
+	&= 694.4W
+\end{align*}
+Secondly, we want to determine the current through the circuit. Assuming that the house is absorbing energy, we have $P = Vi$, so 
+\begin{align*}
+	i &=\frac{P}{V} \\
+	&= \frac{694.4W}{120V} \\
+	&= 5.787A
+\end{align*}
+Lastly, if we reduce power consumption by $60W$, this means we now save $60/694.4*100\% = 8.64\%$, where $8.64\%$ of $\$60.00 = \$5.18$.
+
+\begin{example}
+Consider the simple circuit with an independent voltage source of $15V$ and an independent current source of $2A$. Furthermore, a current of $2A$ passes through the circuit from negative to positive on the voltage source and in the same direction as the current source. Determine the power in each source, and determine if the circuit element is absorbing or delivering power. 
+\end{example}
+
+For the independent current element, we note that $P = Vi$, so $P_{2A} = (15V)(2A) = 30W$. For the independent voltage source, $P =-Vi$ since the current is traveling in the active reference convention, so $P_{15V} = -(15V)(2A) = -30W$. We note the energy balance that results since $-30W + 30W = 0$. 
+
+\subsection{Kirchhoff's Laws}
+
+So far, we have reviewed fundamental electrical quantities of $V, i, P$, and $W$. We have also considered basic circuit elements, such as resistors and sources, each with their own unique $V-i$ relationship. Kirchhoff's laws can now be used to define how $V$ and $i$ are distributed in a circuit. 
+
+\textbf{Kirchhoff's Current Law} (KCL) states that the algebraic sum of all currents at a node must be zero. We choose a consistent way to distinguish between incoming and outgoing currents at a node. To understand Kirchhoff's Current Law, we can consider a fluid-flow analogy, whereby an incoming rate of 6 litres per minute combined with an incoming rate of 3 litres per minute results in an outgoing rate of 9 litres per minute. Analogously, we can consider a node in a circuit joining two or more circuit elements with incoming currents $i_1$ and $i_2$, along with an outgoing current $i_3$. Thus, incoming currents add and outgoing currents subtract. In our example, the sum of the currents is $i_1+i_2-i_3=0$. Therefore, $i_3 = i_1+i_2$. 
+
+\begin{remark}
+Note that two connection points joined by a conductor is equivalent to a single node. We can collapse this into a single connection point. 
+\end{remark}
+
+\begin{example}
+Determine the outgoing current if there are incoming currents of $-5A$, $3A$, and $6A$. 
+\end{example}
+
+According to KCL, at the node, we have the sum of the currents equal to zero. Therefore, $-5A+6A+3A-i_1=0$. Rearranging this, we find that $i_1=4$. 
+
+\textbf{Series circuits} are a very common and important circuit configuration. Let $i_1$, $i_2$, and $i_3$ be the currents through circuit elements $1$, $2$, and $3$ respectively. Nodes $A$ and $B$ each join exactly two circuit elements, as they lie in between circuit elements 1 and 2, and circuit elements 2 and 3 respectively. According to KCL, we have at node $A$ a current of $i_1-i_2=0$, so $i_1=i_2$. At node $B$, we have $i_2-i_3=0$, so $i_2=i_3$. Thus, we note that circuit elements in series must all have the same current. We cannot have circuits that violate KCL. We can distinguish circuit elements that are in series by examining all connection points (nodes), and identifying those where only two circuit elements are joined. 
+
+\textbf{Kirchhoff's Voltage Law} (KVL) states that the algebraic sum of all voltages around a loop must be zero. This law derives from conservation of energy. We consider circuit elements in a closed loop, where a loop is a closed path starting at a node and finishing back at the same node. We similarly need a consistent way to sum voltages. Around the loop, if we pass a circuit element from $+$ to $-$, then we add $V$. If we pass a circuit element from $-$ to $+$, then we subtract $V$. Circuits that violate KVL have voltages around a loop that do not sum to zero. 
+
+For instance, consider a closed loop where the current travels from $-$ to $+$ across circuit element $A$ and $B$, and then from $+$ to $-$ across circuit element $C$. Applying KVL to this loop, we need $-V_A-V_B+V_C=0$. This can be understood through relating KVL with power and energy, since there must be at all times an energy balance (generated must equal absorbed). Hence at any time, the net power must be zero. Thus, we can consider circuit elements $A$, $B$, and $C$ as having power $-V_Ai$, $-V_Bi$, and $V_Ci$ respectively using passive reference convention. $-V_Ai-V_Bi+V_Ci=0$, or $i(-V_A-V_B+V_C) = 0$. Assuming that $i \neq 0$, this means that $-V_A-V_B+V_C=0$, which is KVL.
+
+\section{January 18, 2017}
+\subsection{Kirchhoff's Laws Cont'd}
+
+\textbf{Parallel circuits} are such that circuit elements in parallel have the same voltage. For instance, consider a circuit with circuit elements $A$, $B$, and $C$ in parallel, with $+$ and $-$ for each in the same direction. We can then consider the loops that result when we compare these parallel elements. Around loop 1, we have $-V_A + V_B = 0$, so 
+$$V_A = V_B.$$
+Around loop 2, we have $-V_B+V_C = 0$, so 
+$$V_B =V_C.$$
+Therefore, we have
+$$V_A = V_B = V_C$$
+
+\begin{example}
+Consider the circuit with circuit elements $A$, $B$, $C$, and $D$, where the first two circuit elements are in parallel with $C$ and $D$ (which are in series with each other). $i_A$ flows upwards, $i_B$ flows downwards, $i_C$ flows upwards, and $i_D$ flows downwards. $V_A$, $V_B$ and $V_C$ goes from $+$ to $-$ along with the direction of their current, whereas $V_D$ goes from $+$ to $-$ against the direction of its current direction. Determine the circuit elements in series and the circuit elements in parallel. Determine $i_C$ in terms of $i_D$. Lastly, given that $i_A = 3$ and $i_C = 1$, find $i_B$ and $i_D$. 
+\end{example}
+
+We note that only $C$ and $D$ are in series, since there is nothing also that joins where they join. That is, there is nothing else connected since the current cannot split at any point along the connection. Only $A$ and $B$ are in parallel, since there is nothing separating $A$ and $B$, which are on separate paths each closed by two nodes. We note that they are not in parallel with either $C$ or $D$, since they would either be separated by $D$ or $C$ in the respective cases. Since $C$ and $D$ are in series, they must have identical currents. Since $i_D$ is in the opposite direction to $i_C$, we have $i_C = -i_D$. To determine $i_B$, we apply KCL where $i_A + i_C - i_B = 0$. Thus, 
+$$i_B = i_A + i_C = 3A + 1A = 4A.$$ As we have noted before, $i_C = -i_D$, so 
+$$i_D = -i_C = -1A.$$
+
+\begin{example}
+For the following circuit, let $V_0 = 100V$, and find the total power in the circuit using KVL and KCL. 
+Let there be an unknown current $i_g$ pointing downwards for this independent current source, followed by a voltage from $-$ to $+$ at $80V$. This is in parallel with an independent current source of $4A$ pointing upwards, with a current $i_{\Delta}$ and a voltage source from $+$ to $-$ of $80V$. We also have in parallel a voltage controlled voltage source $V_0$ from $-$ to $+$ with the current pointing upwards of $2i_{\Delta}$
+\end{example}
+
+We need to find all the voltages and currents. We first apply KCL at the location on top at node $A$, where the parallel paths meet. We note that 
+$$i_{\Delta} + 2i_{\Delta} -i_g = 0.$$
+We know that $i_{\Delta} = 4A$, so we can isolate $i_g$ and find that $4A + 2\times 4A -i_g = 0$, so 
+$$i_g = 12A.$$
+We can now redraw with our own labels for loops and unknown voltages. Let the leftmost loop be loop 1, and the rightmost be loop 2. The voltage across the independent current source of $12A$ is labelled $V_{12}$ from $+$ to $-$ in the direction of the current, and the voltage across the the independent current source of $4A$ is labelled $V_4$ from $-$ to $+$. Since we know all the currents, we now use this to find the unknown voltages $V_{12}$ and $V_4$.  We first apply KVL around the rightmost loop to find that when we consider voltages across $+$ to $-$ as a positive voltage, with $-$ to $+$ indicate a negative voltage, we obtain $-V_4 + 80V + 100V = 0$, so
+$$V_4 = 180V.$$
+Now applying KVL to loop 1, we obtain $V_4 + 80V - V_{12}-80V = 0$, so
+$$V_{12} = 180V.$$
+With the currents and voltages known, we can now determine the power using passive reference convention.            For the $12A$ and $4A$ current sources, we have $2160W$ and $-720W$ respectively. For the independent voltage source from $-$ to $+$, we obtain $-960W$, whereas the voltage source from $+$ to $-$ has $320W$. Lastly, the dependent source has $-800W$. If we sum the total power in the circuit, we note that it equals $0W$. That is, there is an energy balance!
+\section{January 20, 2017}
+\subsection{Resistive Circuits}
+
+KVL, KCL, and Ohm's Law give us all the tools we need to begin circuit analysis. We will now consider resistances in series and in parallel. 
+
+First we consider resistance in \textbf{series}. Consider an independent voltage source from $-$ to $+$ in the direction of current $i$. Along this series circuit is $R_1$, $R_2$, and $R_3$ resistors with voltages from $+$ to $-$ of $V_1$, $V_2$, and $V_3$ respectively. By KVL, we now have 
+$$-V + V_1 + V_2 + V_3 = 0.$$
+We recall from Ohm's Law that for a current $i$ across a resistor with voltage from $+$ to $-$, we have $V = iR$. Thus, the expression can be rewritten as 
+$$-V + iR_1 + 1R_2 + 1R_3 = 0.$$ In other words, we can isolate $V$ and factor out $i$ to get
+$$V = i\left(R_1 + R_2 + R_3\right).$$
+We note then that we can replace the resistors with a single equivalent resistance $R_{eq}$, where 
+$$R_{eq} = R_1 + R_2 + R_3.$$
+Therefore, resistance in series add. 
+
+Now, we consider resistance in \textbf{parallel}. Suppose we have a parallel circuit with voltage source from $-$ to $+$ in the direction of current $i$. Along parallel paths, we have resistors $R_1$, $R_2$, and $R_3$ with currents $i_1$, $i_2$, and $i_3$ respectively with a common voltage $V$ from $+$ to $-$. Then, we consider the common node and apply KCL to find that $$i -i_1 -i_2-i_3=0.$$ By applying Ohm's Law, we can rewrite this as 
+$$i-\frac{V}{R_1} -\frac{V}{R_2} - \frac{V}{R_3} = 0.$$
+Therefore, solving for $i$ by factoring out $V$, we obtain 
+\begin{align*}
+i &= V\left(\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}\right)\\
+&= V(C_1+C_2+C_3)
+\end{align*}
+Therefore, conductances in parallel add. In terms of voltage, this can be expressed as 
+$$V = i\left(\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}\right)^{-1}.$$
+
+A very common resistor configuration consists of two resistors in parallel. The total resistance is therefore
+\begin{align*}
+R_{eq} &= \left(\frac{1}{R_1} + \frac{1}{R_2}\right)^{-1}\\
+&=\frac{1}{\frac{1}{R_1} + \frac{1}{R_2}}\\
+&= \frac{R_1R_2}{R_1+R_2}
+\end{align*}
+
+\begin{example}
+Find a single equivalent resistance for a circuit with a $15\Omega $ and $5\Omega$ resistor in series. The circuit branches into two parallel paths, one with a $30\Omega$ and $10\Omega$ resistor in series, and the other path with a $40\Omega$ resistor. 
+\end{example}
+
+We note that we have two set of resistors in series. We can add these resistances, so we have $20\Omega$ and $40\Omega$. We now evaluate the resistance of the two split paths by considering them in parallel. We apply the common expression of $R_{eq}= \frac{R_1R_2}{R_1+R_2}$ to obtain $20\Omega$. Since the result is now in series with the other $20\Omega$ resistance, we simply add to obtain a final resistance of 
+$$R_{eq} = 20\Omega + 20\Omega = 40\Omega.$$
+
+\section{January 23, 2017}
+\subsection{Circuit Analysis Using Series-Parallel Equivalents}
+
+\textbf{Circuit Analysis} is a procedure for determining all voltages and currents in every circuit element. We may employ the above simple resistor equivalents to analyze a circuit. 
+
+\begin{example}
+Consider a circuit with an independent voltage source of $80V$ from $-$ to $+$, with a current $i$. This is met with a $60\Omega$ resistor, followed by a $40\Omega$ resistor on a parallel branch, and a $10\Omega$ and $30\Omega$ resistor on another parallel branch. Find the power in each of the circuit elements. 
+\end{example}
+
+We first combine resistances. Since the $10\Omega$ and $30\Omega$ resistor are on the same branch, we can add the resistances to obtain $40\Omega$. Since this is in parallel with the other $40\Omega$ resistor, we apply the expression for resistance in parallel to obtain $20\Omega$. This is now in series with the $60\Omega$ resistor, so we add them to get a total resistance of $80V$. Since $V = iR$, we can isolate for current to obtain 
+\begin{align*}
+i &= \frac{V}{R}\\
+&= \frac{80V}{80\Omega}\\
+&= 1A
+\end{align*}
+We can now reconstruct the original circuit and determine the voltage across each individual resistor. We first split back into the configuration with the $60\Omega$ and $20\Omega$ resistors (the $20\Omega$ resistor is a combination of three resistors). Since $V = iR$, we have $60V$ and $20V$ respectively. We can check from KVL that this is correct since 
+$$-80V+60V+20V=0.$$
+We now split the $20\Omega$ resistor into the remaining resistors. We note that the current splits off into two paths. Thus, we find the currents by once again applying the known voltage of $20\Omega$ to each resistance. We find that for both paths, since the net resistance is $40\Omega$, $\frac{20V}{40\Omega} = 0.5A$. We can check KCL at the node where the current splits and note that this is correct since
+$$1A-0.5A-0.5A = 0.$$
+Now, we once again determine the voltage across each resistor. Over the $40\Omega$ resistor with $0.5A$ we have the same $20V$, across the $10\Omega$ resistor with $0.5A$ we have $5V$, and across the $30\Omega$ resistor with $0.5A$ we have $15V$. 
+We determine the power across each circuit element by considering all resistors use power, while the source generates the power. Thus, over the source we have $-80W$, over the first $60\Omega$ resistor we have $i^2R = (1A)^2(60\Omega) = 60W$, over the $40\Omega$ resistor we have $10W$, over the $10\Omega$ resistor we have $2.5W$, and over the $30\Omega$ resistor we have $7.5W$. Note the energy balance since $$-80W + 60W + 10W + 2.5W + 7.5W = 0.$$
+
+Later, we will use well established systemic methods to do analysis:
+\begin{itemize}
+	\item \textbf{Node-Voltage Method}
+	\item \textbf{Mesh-Current Method}
+	\item \textbf{Thevenin Equivalents}
+	\item \textbf{Superposition}
+\end{itemize}
+
+\subsection{Other Simple Resistor Circuits - Voltage and Current Dividers}
+
+In a series connection of resistors, the total applied voltage divides among them. We have $R_{eq} = R_1 + R_2 + R_3$, so $$i = \frac{V}{R_{eq}} = \frac{V}{R_1 + R_2+R_3}.$$ The individual voltages are therefore $V_1 = iR_1$, $V_2 = iR_2$, and $V_3 = iR_3$. For $R_1$ then, we have 
+$$V_1 = \left(\frac{R_1}{R_1+R_2+R_3}\right)V,$$
+where the portion of the total resistance of $R_1$ is the same as the portion of $V_1$ of the total voltage. The results are similarly defined for $R_2$ and $R_3$.
+
+In a parallel connection of resistors, the total applied current divides among them. We have $$R_{eq} = \left(\frac{1}{R_1} + \frac{1}{R_2}\right)^{-1} = \frac{R_1R_2}{R_1+R_2},$$
+so $$V = i\left( \frac{R_1R_2}{R_1+R_2}\right).$$ The individual currents are therefore 
+\begin{align*}
+i_1 &= \frac{V}{R_1} \\
+&= \frac{i}{R_1}\left( \frac{R_1R_2}{R_1+R_2}\right)\\
+&= i\left( \frac{R_2}{R_1+R_2}\right)
+\end{align*}
+where $i_2$ is defined analogously. Note the similarity to the voltage divider, except it is the resistor from the other branch in the numerator. It is not as straightforward as voltage division with more than two resistors. When more than two resistors are in parallel, we may group them. 
+
+\begin{example}
+Find $i_3$ in the circuit with resistor $10\Omega$, which is in parallel with a $60\Omega$ and $30\Omega$ resistor with a $10A$ independent current source. 
+\end{example}
+
+We recall that we can combine the other two resistors to obtain another resistor with equal net resistance. That is, 
+$60\Omega*30\Omega/(60\Omega+30\Omega) = 20\Omega$. Now, applying the expression for current dividers, we obtain 
+\begin{align*}
+i_3 &= i\left( \frac{R_2}{R_1+R_2}\right)\\
+&= 10A*\frac{20\Omega}{10\Omega + 20\Omega}\\
+&= 6.67A
+\end{align*}
+
+\begin{example}
+Given an independent current source of $2A$, with a $6\Omega$ and $12\Omega$ resistor in parallel, and a $12\Omega$ and $24\Omega$ resistor in parallel, find $V$, $i_1$, and $V_2$, where $V$ is the total voltage generated by the current source, $V_2$ is the voltage across the $12\Omega$ resistor in parallel with the $6\Omega resistor$, and $i_1$ is the current across the other $12\Omega$ resistor. 
+\end{example}
+
+There are many ways to proceed. For our purposes, we first find the total resistance connected to the source to find $V$. We then use voltage division to find $V_2$ and current division to find $i_1$. We simplify the resistances to obtain the equivalent net resistance. By considering the parallel resistors, we obtain an $8\Omega$ and $4\Omega$ resistor. Combining these in series, we get a $12\Omega$ resistor. 
+\begin{align*}
+V &= iR \\
+&= (2A)(12\Omega)\\
+&= 24V
+\end{align*} Since circuit elements in parallel have the same voltage, we simply need to find $V_2$ by finding the voltage across the resistance over the net $4\Omega$ resistor. 
+\begin{align*}
+V_2 &= iR = \\
+&= (2A)(4\Omega)\\
+&= 8\Omega
+\end{align*}
+With the incoming total current of $2A$, we can apply current division to find $i_3$
+\begin{align*}
+i_3 &= i\left( \frac{R_2}{R_1+R_2}\right)\\
+&= 2A*\frac{24\Omega}{12\Omega + 24\Omega}\\
+&= 1.33A
+\end{align*}
+
+
+\subsection{Node-Voltage Analysis}
+
+The previous method of circuit analysis by series and parallel circuit manipulation works well for many circuits, but it is an ``ad-hoc" method and depends on the circuit. Furthermore, it does not apply to all circuits. For instance, there are circuits where nothing is in series and nothing is in parallel. Node-voltage analysis works for any circuit. Its basic steps are as follows:
+
+\begin{enumerate}
+	\item Identify nodes and decide on a reference node.
+	\item Apply KCL at nodes to develop a system of equations in terms of node voltages.
+	\item Solve for node voltages. 
+\end{enumerate}
+
+\section{January 25, 2017}
+\subsection{Node-Voltage Analysis Procedure}
+Consider a circuit with an independent voltage source $V_s$. The path breaks off at node $A$ into two paths, one with resistor $R_1$, and the other with resistor $R_2$. The second path with $R_2$ continues to separate into two paths at node $B$, one with $R_3$ that joins with the path with $R_1$ at node $C$, and another with resistor $R_4$. The joined path encounters $R_5$ before joining with the path with $R_4$ at node $D$, which then leads to the source. 
+
+We first identify the nodes, and decide on a reference node. We label node $D$ as our reference node that we designate as our zero volt reference. All node voltages are relative to this reference node. It always simplifies the process by selecting a node at the side of a voltage source. We label this node with a short line extending from the node, followed by a long line, a short line, and a dot. 
+
+Note that according to this reference node, then node voltage $V_1$ at node $A$ becomes $V_1 = V_s$. We now apply the second step and perform KCL at the nodes. So far, we have always labelled \textbf{branch voltages} for circuit elements. For instance, the current $i_x$ across a resistor $R_x$ from $+$ to $-$ has $V_x = i_xR_x$, and an independent voltage source has voltage $V_x$. However, we now need to consider \textbf{node voltages}, so we must express $V_x$ and $i_x$ in terms of node voltages $V_1$ and $V_2$ with $V_2$ the incoming voltage and $V_1$ the outgoing voltage. 
+
+According to common sense interpretation, voltage $V_2$ appears to be at a higher potential than $V_1$. Therefore, the branch voltage $V_x$ is the difference between the higher voltage $V_2$ and the lower voltage $V_1$. That is, 
+$$V_x = V_2 -V_1.$$
+In a KVL interpretation, we arrive at the same result by forming a loop with and independent voltage source and two resistors with voltage $V_z$, $V_z$, and $V_y$ respectively. We know by KVL that 
+$$-V_y-V_x+V_z=0.$$
+However, we consider the nodes when the independent voltage source and the resistor meet as $V_2$ and the node where both resistors meet as $V_1$. Now, we have $V_1 = V_y$ and $V_2 = V_z$, so 
+$$-V_1 -V_x+V_2=0,$$
+and hence 
+$$V_x = V_2-V_1.$$
+Since we now have an expression for $V_x$, we can also derive an expression for current in terms of node voltages,
+$$i_x = \frac{V_2-V_1}{R_x}.$$
+
+In our original circuit in consideration, we have $V_1$ at node $A$, $V_2$ at node $B$, and $V_3$ at node $C$. We can now consider $V_2$ in the original circuit, and write an expression for current over $R_2$, $R_3$, and $R_4$,
+$$i_2 = \frac{V_2-V_1}{R_2},$$
+$$i_3 = \frac{V_2-V_3}{R_3},$$
+$$i_4 = \frac{V_2-0}{R_4}.$$
+
+\begin{remark}Note that by convention, we always point the arrow of the current away from the node of interest from the resistors from $+$ to $-$. We have applied KVL and Ohm's Law to determine the current term in each case. Noe that the expression for $i_4$ contains $0$ since this is our reference node.
+\end{remark}
+ We now sum the currents at node $B$ by KCL to obtain 
+$$-\left(\frac{V_2-V_1}{R_2}\right)-\left(\frac{V_2-0}{R_4}\right)-\left(\frac{V_2-V_3}{R_3}\right)=0.$$
+For simplicity, we multiply the entire equation by $-1$ to obtain 
+$$\left(\frac{V_2-V_1}{R_2}\right)+\left(\frac{V_2-0}{R_4}\right)+\left(\frac{V_2-V_3}{R_3}\right)=0.$$
+Repeating the above procedure for node $C$ with currents once again pointing away from the node, we obtain 
+$$\left(\frac{V_3-V_1}{R_1}\right)+\left(\frac{V_3-V_2}{R_3}\right)+\left(\frac{V_3-0}{R_5}\right)=0.$$
+\begin{remark}
+Note the general pattern when writing a node equation with a resistor branch. The node of interest comes first, followed by a subtraction of the connecting node, all over the connecting resistance. All terms in this equation represent the current leaving a node, summed to zero by KCL.
+\end{remark}
+For objects other than resistors connected to the node, we perform different operations. For an independent current source leaving the node, we use the positive corresponding current which is a constant (independent current sources entering the node are therefore given the corresponding negative value). For an independent voltage source leaving the node from $+$ to $-$, the current over this source is unknown. We employ a variation of the current method used. 
+
+\section{January 27, 2017}
+\subsection{Node-Voltage Analysis Examples}
+
+\begin{example}
+An independent current source of $1A$ is connected to node $A$ of voltage $V_1$, splitting off into two paths. The first contains a $5\Omega$ resistor, while the second contains a $2\Omega$ resistor, which then branches off at node $B$ with voltage $V_2$ into two paths. The first contains a $10\Omega$ resistor that connects to the path with the $5\Omega$ resistor at node $C$ with voltage $V_3$. The second path contains a $5\Omega$ resistor that connects to node $D$, which is reached by the first branch after it passes a $10V$ independent voltage source from $+$ to $-$ and the reference node $E$. Determine $V_1$, $V_2$, and $V_3$. 
+\end{example}
+
+We note that since $V_3$ connects directly to the $10V$ source, $V_3 = 10V$. We can then consider node $A$ with $V_1$. By considering the outgoing currents, we obtain 
+$$\frac{V_1-V_2}{2\Omega} + \frac{V_1-10V}{5\Omega} + (-1A) = 0.$$
+We then consider node $B$ with $V_2$, where we obtain
+$$\frac{V_2-V_1}{2\Omega} + \frac{V_2-10V}{10\Omega} + \frac{V_2-0}{5\Omega}.$$
+From both of these equations, we can solve the following equivalent system
+$$7V_1-5V_2 = 30,$$
+$$5V_1+8V_2 = 10.$$
+Solving this system, we obtain $V_1 = 9.35V$ and $V_2 =  7.097V$. 
+
+\begin{example}
+A $5\Omega$ resistor connects to node $A$ with voltage $V_1$, splitting into two paths. The first contains a dependent current source of $2i_x$ pointing backwards. The second path connects to a $2\Omega$ resistor, then to node $B$ of voltage $V_2$, with one path connecting to a $5\Omega$ resistor with current $i_x$ in the forward direction, connecting with the path of the dependent current source at node $C$ of voltage $V_3$. The second path connects to a $10V$ source which connects with the node. Solve for the node voltages. 
+\end{example}
+
+We once again have 3 nodes, with $V_2 = 10V$ since it is connected to the voltage source. We therefore solve for $V_1$ and $V_3$,
+$$\frac{V_1-0V}{5\Omega} + \frac{V_1-V_2}{2\Omega} + (-2i_x) = 0,$$
+$$\frac{V_3-0V}{10\Omega} + \frac{V_3-V_2}{5\Omega} + 2i_x = 0.$$
+Note that $\frac{V_3-V_2}{5\Omega}$ is simply $i_x$ pointing in the other direction. This expression is therefore equal to $-i_x$. Since we know $V_2 = 10V$, we can simplify the above equations to obtain 
+$$7V_1-50-20i_x = 0,$$
+$$3V_3 - 20 + 20i_x = 0.$$
+We further simplify this by considering that $$i_x = \frac{V_2-V_3}{5\Omega}.$$Thus, we substitute this for $i_x$ in the two equations to solve for $V_1$ and $V_3$. Doing this, we obtain $V_1 = 1.43V$ and $V_3 = 20V$. 
+
+\section{January 30, 2017}
+\subsection{Node-Voltage Analysis Examples Cont'd}
+
+\begin{example}
+Suppose we are give a $1A$ current source heading up to connect at $V_1$, where the path splits into 3 paths at a node $A$ with voltage $V_1$. The path leading back down is connected to a $5\Omega$ resistor, the path going across is connected to a $15\Omega$ resistor, and the path above connects to a $10\Omega$ resistor with a voltage of $V_x$ from $-$ to $+$. The $15\Omega$ resistor path splits into 2 at a node $B$ with voltage $V_2$, with one passing a $2V_x$ dependent voltage source from $+$ to $-$, which then connects to the reference node, and another path with a $10\Omega$ resistor. This path connects with the path with other $10\Omega$ resistor at a node $C$ with a voltage of $V_3$, and then splits off into a path with a $5\Omega$ resistor and one with a $2A$ current source in the upwards direction. 
+\end{example}
+
+In this problem, we have three voltages, where we know that $V_2 = 2V_x$ since the path from $V_2$ to reference node has a voltage of $2V_x$. At node $A$, we have 
+$$-1A + \frac{V_1-0V}{5} + \frac{V_1-V_2}{15} + \frac{V_1-V_3}{10} = 0.$$
+We can rearrange this to sum the conductances connecting each node to obtain
+$$V_1\left(\frac{1}{5} + \frac{1}{15} + \frac{1}{10}\right) -V_2\left(\frac{1}{15}\right) -V_3\left(\frac{1}{10}\right)-1=0.$$
+At node $C$, we have 
+$$\frac{V_3-V_1}{10} + \frac{V_3-V_2}{10} + \frac{V_3-0V}{5} - 2 = 0.$$
+Note that we also have the dependence at top, so we find that $V_x = V_3-V_1$. Thus, since $V_2 = 2V_x$, this becomes $V_2 = 2(V_3-V_1)$. We now solve for the unknown values of $V_1$ and $V_3$ in the system of equations to obtain 
+$$15V_2-7V_3 = 30,$$
+$$V_1+2V_3 = 20.$$
+We can then conclude that $V_1 = 5.405V$, $V_3 = 7.297V$, and $V_2 = 2(V_3-V_1) = 3.784V$.
+
+\subsection{Node-Voltage Method - Special Case}
+
+There is only one special case that needs to be handled, where we have voltage sources between nodes where neither node is a reference node. First, the \textbf{simpler case} occurs when voltage sources are connected directly to other voltage sources. For instance, consider a reference node connected to 3 paths, each ending at nodes with voltages of $V_1$, $V_2$ and $V_3$ respectively. The first two paths have a resistor, while the third if connected to a voltage source of $V_a$ from $-$ to $+$. Nodes $1$ and $2$ are connected by a resistor, and nodes $2$ and $3$ are connected by a voltage source $V_b$ from $+$ to $-$. Nodes $1$ and $3$ are connected by another resistor. We notice that $V_3 = V_a$, and that $V_2-V_3 = V_b$, so $V_2 = V_a + V_b$. In this case, $V_2$ and $V_3$ are already known, so we do not need to write equations. We are left with only one unknown with one equation to solve at node $1$. 
+
+The \textbf{trickier case} occurs when the sources are not directly connected to each other. Suppose the same configuration as above, except $V_b$ is now between $V_2$ and $V_1$ from $+$ to $-$ and $V_2$ and $V_3$ are connected by a resistor instead. While $V_3 = V_a$ is the same, we do not know the current $i$ that spans the voltage source from $V_1$ to $V_2$. Recall in writing node equations that we sum the currents leaving the nodes. At node $1$, we have 
+$$\frac{V_1-0V}{R_1} + \frac{V_1-V_3}{R_2} + i = 0,$$
+where $R_1$ and $R_2$ are the resistances between the respective nodes. Since $i$ is another unknown along with $V_1$ and $V_2$, we cannot ignore it. We have to handle the problem with the concept of a \textbf{supernode} comprised of $V_1$, $V_2$, and the current voltage source in between. Considering node $2$ of the original circuit, we have 
+$$\frac{V_2-0V}{R_3} + \frac{V_2-V_3}{R_4} - i = 0,$$
+where $R_3$ and $R_4$ are the resistances between the respective nodes. We can now eliminate $i$ by adding the above two equations to obtain 
+$$\frac{V_1-0V}{R_1} + \frac{V_1-V_3}{R_2} +\frac{V_2-0V}{R_3} + \frac{V_2-V_3}{R_4}=0.$$
+This is the \textbf{supernode equation} where the left side of the supernode is the first two components of the expression, and the right side of the supernode is the remaining two components of the equation. We also have a \textbf{dependence equation} for the two nodes within the supernode
+$$V_2-V_1 = V_b.$$
+The result is that we still have two equations to describe the nodes $V_1$ and $V_2$: the supernode and dependence equations. 
+
+\begin{example}
+Suppose we have an independent voltage source of $10V$ connected to a reference node on one end, and to node $V_1$ on another. The path splits into one that connects to $V_3$ with $20\Omega$, and one that connects to $V_2$ with $10\Omega$. $V_2$ is connected to a path with $2\Omega$ to the reference node and to $V_3$ with a voltage source of $5V$ from $-$ to $+$. $V_3$ is connected to the reference node with $5\Omega$ resistance. Solve for node voltages. 
+\end{example}
+
+We form a supernode between $V_2$ and $V_3$. This gives
+$$\frac{V_2-V_1}{10} + \frac{V_2-0V}{2} + \frac{V_3-V_1}{20} + \frac{V_3-0V}{5} = 0.$$
+From the diagram, we know that $V_1 = 10V$, so we can substitute to obtain the equation 
+$$12V_2 +5V_3 = 30.$$
+We also have the dependence equation of 
+$$V_3-V_2 = 5V.$$
+Simultaneously solving this system of equations gives $V_2 = 0.294V$ and $V_3 = 5.294V$. 
+
+
+\begin{example}
+Suppose we have a circuit with a $2A$ current source pointing to node $B$. This leads to a $2\Omega$ resistor to node $A$, which connects back to the current source, and to a $5\Omega$ resistor that leads to node $C$. This leads to a path with a $8\Omega$ resistor followed by a $2\Omega$ resistor with voltage $V_x$ from $+$ to $-$ which ends at node $A$, and two paths that lead to node $D$. The first path is across a $20V$ voltage source from $+$ to $-$, and the second path is across a $20\Omega$ resistor. Node $D$ leads to node $A$ through an independent current source of $1A$ in the reverse direction. Determine $V_x$.
+\end{example}
+
+We can select different reference nodes. This is summarized below:
+\begin{enumerate}
+	\item \textbf{Choice A}: We need equations for $B$, $C$, and $D$, where $C$ and $D$ form a supernode.
+	\item \textbf{Choice B}: We need equations for $A$, $C$, and $D$, where $C$ and $D$ form a supernode.
+	\item \textbf{Choice C}: We need equations for $A$ and $B$, where $D$ is fixed at $-20V$.
+	\item \textbf{Choice D}: We need equations for $A$ and $B$, where $C$ is fixed at $20V$.
+\end{enumerate}
+The best choices appear to be $C$ or $D$. However, we will choose to demonstrate this example with node $A$. Solving for node $B$, we obtain 
+$$-2A + \frac{V_B-0V}{2\Omega} + \frac{V_B-V_C}{5\Omega} = 0.$$
+The supernode equation and dependence equation are 
+$$\frac{V_C-V_C}{5} + \frac{V_C-0V}{8+2}-1=0,$$
+$$V_C-V_D=20V.$$
+Solving this system of three equations with three unknowns, we find that $V_B+ 4.71V$, $V_C = 6.47V$, and $V_D = -13.53V$. We now use a simple voltage divider to find that 
+$$V_x = \left(\frac{2}{8+2}\right)V_C = 1.294V.$$
+
+\begin{example}
+Suppose that we have a $0.25A$ to $V_c$. $V_c$ is connected to reference through a resistor of  $4\Omega$, to $V_a$ with $1\Omega$, and to $V_b$ with a dependent current source from of $4i_x$ from $-$ to $+$. $V_b$ is connected to reference with $1\Omega$, and to $V_a$ with a current source of $2A$ in the reverse direction. $V_a$ is connected to reference through a $4\Omega$ resistor with current $i_a$, and also through a $4\Omega$ resistor and a $10V$ voltage source from $+$ to $-$. Determine the voltages $V_a$, $V_b$, and $V_c$. 
+\end{example}
+
+At node $a$, we have 
+$$\frac{V_a-10V}{4} + \frac{V_a-0V}{4} + \frac{V_a-V_c}{1} + 2A.$$
+At the supernode, we have 
+$$\frac{V_C-0V}{4} -0.25A+\frac{V_c-V_a}{1} + \frac{V_b-0V}{1} -2A,$$
+which reduces to $-4V_a+4V_b+5V_c=9$. In terms of supernode dependence, we know that $V_b-V_c = 4i_x$, where $i_x = \frac{V_a}{4}$. Substituting this into the dependence equation, we obtain 
+$$-V_a+V_b-V_C=0.$$
+We now have 3 equations to solve for the 3 unknowns. Solving this system of equations, we find that $V_c=1V$, $V_a = 1V$, and $V_b = 2V$. 
+
+\begin{example}[A Wheatstone Bridge]
+Suppose we have a $15V$ source from $-$ to $+$ leading to node $1$. Here, we split off into a path with a $1200\Omega$ resistor which arrives at a node labelled $a$, and then connects to a $300\Omega$ resistor which meets back with the other path. The other path is a $1000\Omega$ resistor, connected to node $b$, which passes a resistance of $R_4$ before meeting the first path at node $2$. This then connects back to the voltage source. A voltage $V_{ab}$ spans from $a$ to $b$ with $a$ labelled as $+$ and $b$ labelled as $-$. Assume that this bridge is balanced so that $V_{ab} = 0V$. Determine $R_4$. Now, set $R_4 = 200\Omega$ and connect $a$ and $b$ with a $250\Omega$ resistor. Find the power in the $250\Omega$ resistor. 
+\end{example}
+
+This is essentially a pair of voltage dividers. When it is balanced, $V_{ab} = 0V$, so $a$ and $b$ have equal voltages. We find the voltage at $a$ is $$V_a =\frac{300}{200+1200}*15V = 3V.$$ This can also be checked using the node-voltage method by letting node $2$ be the reference node. Since the voltages $V_a = V_b$, we find that $$V_b = \frac{R_4}{R_4+1000}*15V = 3V.$$
+Solving this gives $R_4 = 250\Omega$. For the second problem, we find that at node $a$, we have 
+$$\frac{V_a-V_c}{1200}+\frac{V_a-0V}{300}+\frac{V_a-V_b}{250} = 0,$$
+where $V_c=15V$ is the voltage at node $1$. At node $b$, we have $$\frac{V_b-15V}{1000} + \frac{V_b-0}{200} + \frac{V_b-V_a}{250} = 0.$$
+Solving this system, we find that $V_a = 2.817V$ and $V_b = 2.627V$. Thus, since $P = \frac{V^2}{R}$, we have 
+$$P_{250} = \frac{(V_a-V_b)^2}{250\Omega} = 0.144mW.$$
+
+\section{February 1, 2017}
+\subsection{Mesh-Current Method}
+
+The \textbf{mesh-current method} is another useful systematic method of circuit analysis. To use this method, the circuit must be planar with no crossing conductors. \textbf{Mesh currents} can be 
+imagined as currents circulating in a closed loop or mesh. We note that mesh currents are different from \textbf{branch currents} in that we use branch currents to write KCL equations, and mesh currents cannot be measured with an ammeter. For instance, consider the branch currents $i_1$, $i_2$, and $i_3$, where $i_1$ is the only one that enters a node, and the other two leave the node. That is, 
+$$i_1 = i_2+i_3.$$
+In mesh currents with $i_a$ and $i_b$ around the parallel loops around the node, we have 
+$$i_a = i_1,$$
+$$i_b = i_2,$$
+$$i_3 = i_a-i_b.$$
+
+The mains steps for mesh-current analysis are as follows:
+\begin{enumerate}
+	\item Identify meshes.
+	\item Write the mesh-current equation for each mesh to develop a system of equations.
+	\item Solve for mesh equations.
+\end{enumerate}
+
+\section{February 3, 2017}
+\subsection{Mesh-Current Analysis Procedure}
+
+Consider a circuit with a voltage source $V_a$ from $-$ to $+$ which leads to two paths at node $A$, one with a current source $i_s$ in the forward direction leading to node $C$, and another with resistance $R_1$ to node $B$. At node $B$, a resistor $R_3$ connects to node $D$ while a resistor $R_2$ connects to node $C$. Node $C$ connects to node $D$ through a voltage source of $V_b$ from $+$ to $-$, and node $D$ leads back to the negative end of the original voltage source.
+
+To identify meshes, we can imagine a circuit as a window with panes. We then assign a mesh current to each pane. The bottom left mesh current between $V_a$, $R_1$ and $R_3$ is $i_a$, the mesh current between $R_2$, $R_3$, and $V_b$ is $i_b$, and the mesh current between $i_s$, $R_1$, and $R_2$ is $i_c$. We note immediately that $i_s$ forces the mesh current $i_c = i_s$, so $i_c$ is known immediately. 
+
+Secondly, we form mesh equations in each mesh. We do so by labelling the circuit to indicate a polarity on each resistor inside each mesh in response to the mesh current in that mesh. This means that in the direction of each mesh current, any resistor $R_x$ goes from $+$ to $-$ in the direction of the mesh current being considered. $R_1$ for instance goes from $+$ to $-$ for both $i_a$ and $i_c$ when considering their respective cases, even when they are both approaching the resistor from opposite directions. 
+
+For mesh $a$, voltages around the mesh must sum to zero by KVL. To find the voltage across resistors $R_1$ and $R_3$, we need to determine the branch currents in terms of mesh currents. For $R_1$, the branch current $i_1$ is in the direction we chose for $i_a$, so 
+$$i_1 = i_a-i_c.$$
+Since $V_1 = i_1R_1$, we can substitute the branch current with the mesh currents to obtain 
+$$V_1 = (i_a-i_c)(R_1).$$
+Summing the voltages around mesh $a$, we find that 
+$$-V_a+(i_a-i_c)R_1 + (i_a-i_b)R_3 = 0.$$
+Similarly, for mesh $b$, we obtain
+$$V_b + (i_b-i_a)R_3 + (i_b-i_c)R_2=0.$$
+
+Now, we complete the third step by solving the system of two equations in the two unknowns of $i_a$ and $i_b$ since we already know $i_c = i_s$. We can now completely solve the circuit. 
+
+\begin{example}
+Suppose we have a a loop with a $1\Omega$ resistor on the left, a $2\Omega$ resistor on top, and a $5V$ source from $+$ to $-$ on the right. On top, the $2\Omega$ resistor forms a loop with a $4\Omega$ resistor and a $3\Omega$ resistor. On the right, the $5V$ source forms a loop with the $3\Omega$ resistor and a $1A$ current source in the reverse direction. These loops have mesh currents of $i_a$, $i_b$, and $i_c$ respectively. Find the power in the $3\Omega$ resistor.  
+\end{example}
+
+Note that we immediately know that $i_c = -1A$. We now have two unknowns of $i_a$ and $i_c$. 
+For mesh $a$, we have 
+$$(i_a)(1\Omega) + (i_a-i_b)(2\Omega) + 5V = 0.$$
+Note that $i_a$ is alone in the first term since there is only one mesh current in the $1\Omega$ resistor. This is in contrast to the two mesh currents $i_a-i_b$ in the $2\Omega$ resistor that are opposite in direction. Likewise, for mesh $b$ we have
+$$(i_b-i_a)(2\Omega) + (i_b)(4\Omega) + (i_b-i_c)(3\Omega) = 0.$$
+Solving this system of equations with $i_c = -1A$ gives $i_a = -0.826A$ and $i_b=-2.217A$. To determine the power in the $3\Omega$ resistor, we note that the branch current in the direction of $i_c$ is $i_c-i_b = -0.174A$. Thus, we find power to be 
+$$P = i^2R = (-0.174A)^2(3\Omega) = 0.0908W.$$
+
+\section{February 6, 2017}
+\subsection{Mesh-Current Analysis Examples}
+
+\begin{example}
+Suppose we have a circuit with a dependent voltage source of $10i_x$ from $-$ to $+$ followed by a $10\Omega$ resistor and a $5\Omega$ resistor in mesh current $i_a$, where $i_x$ is the branch current on the branch with $5\Omega$ in the direction of $i_a$ on that branch. $i_b$ consists of the $5\Omega$ resistor with a $20\Omega$ resistor and a $10V$ source from $+$ to $-$. Determine the mesh currents $i_a$ and $i_b$.
+\end{example}
+
+For mesh $a$ and $b$, we have 
+$$-10i_x + 10i_a + 5(i_a-i_b) = 0,$$
+$$5(i_b-i_a) + 20i_b+10=0.$$
+We can express $i_x$ in terms of the mesh currents, so $$i_x = i_a-i_b.$$ 
+Thus, solving this system of equations, we obtain $i_a= \frac{1}{3}{A}$, and $i_b = -\frac{1}{3}A$.
+
+\begin{example}[Wheatstone Bridge]
+Suppose we are given a circuit with a $15V$ independent voltage source from $-$ to $+$ in the direction of mesh current $i_a$. This leads to node $A$, where we find resistances of $1000\Omega$, $250\Omega$, and $1200\Omega$ forming $i_b$ between nodes $A$, $B$, and $C$. This is followed by mesh $i_c$ comprised of resistances of $250\Omega$, $200\Omega$, and $300\Omega$ between nodes $C$, $B$, and $D$, with node $D$ connecting back to the voltage source. Note that $i_a$ consists of the voltage source, the $1200\Omega$ resistor, and the $300\Omega$ resistor. Determine the power in the $250\Omega$ resistor.
+\end{example}
+
+We list the mesh current equations for $i_a$, $i_b$, and $i_c$ respectively,
+$$-15+1200(i_a-i_b) + 300(i_a-i_c)=0,$$
+$$250(i_b-i_c) + 1200(i_b-i_a) + 1000i_b=0,$$
+$$300(i_c-i_a) + (250(i_c-i_b) + 200i_c = 0.$$
+Note that similar to the node-voltage method, we can see an important pattern arise when we rearrange the equations. Consider the rearrangement of the equation for mesh $a$:
+$$(1200+300)i_a - 1200i_b - 300i_c -15 = 0.$$
+These terms represent the total resistance around mesh $a$, the resistance shared with mesh $b$, the total resistance shared with mesh $c$, and the total voltage respectively. The three equations above form a system with three unknowns. The branch current in the $250\Omega$ resistor in the direction of $i_c$ is given by $i_c-i_b$. Thus, since $P = i^2R$, this becomes
+$$P = (i_c-i_b)^2(250).$$
+
+\subsection{Mesh-Current Analysis - Special Case}
+
+As in the node-voltage method, there is a special case that we must handle. This occurs when there is a branch current source shared between meshes. Suppose we are given a circuit where $R_1$, $R_2$, and the independent current source $i_s$in the forward direction form $i_a$, the independent current source $i_s$ in the opposite direction, $R_4$, and an independent voltage source $V_b$ from $+$ to $-$ forms $i_b$, and $R_2$, $R_3$ and $R_4$ form $i_c$. We note that $i_s$ is shared by meshes $a$ and $b$. 
+
+In mesh $a$, we have an unknown voltage $V$ because of the current source, so we obtain 
+$$i_aR_1 + (i_a-i_c)R_2 + V = 0.$$
+In mesh $b$, we also have the unknown voltage $V$, 
+$$-V + (i_b-i_c)R_4 + V_b = 0.$$
+Now, we can add these two equations together to obtain the \textbf{supermesh equation} by considering $a$ and $b$ a supermesh,
+$$i_aR_1 + (i_a-i_c)R_2 + (i_b-i_c)R_4 + V_b = 0.$$
+The first two terms represent the side of the supermesh in mesh $a$, while the last two terms represent the side of the supermesh in mesh $b$. We also have a \textbf{dependence equation} for the two meshes within the supermesh,
+$$i_a-i_b =i_s.$$
+
+\begin{example}
+Suppose we have a circuit with a $10V$ voltage source from $-$ to $+$ with a $5\Omega$ resistor and a $2V_x$ current source in the opposite direction forming $i_a$. We also have this $2V_x$ current source in the forward direction, with a $10\Omega$ resistor with a voltage of $V_x$ from $+$ to $-$ and a $5V$ voltage source from $+$ to $-$ forming $i_b$. Determine the mesh currents. 
+\end{example}
+
+We need a supermesh equation and a dependence equation. These are given respectively as
+$$-10+5i_a + 10i_b + 5  = 0,$$
+$$i_b-i_a = 2V_x.$$
+Taking into account the dependent current source, we note that $V_x = 10i_b$. Solving this system gives $i_a = 1.118A$ and $i_b = -0.0588A$. 
+
+\section{February 8, 2017}
+\subsection{Supermesh Examples}
+
+\begin{example}Suppose we have mesh $i_1$ with a $10\Omega$ resistor connected to a $3A$ current source in the forward direction, a $5\Omega$ resistor and a $2A$ current source in the reverse direction.  Mesh $i_2$ consists of the same $2A$ current source in the forward direction, a $15\Omega$ resistor, and a $10\Omega$ resistor. Mesh $i_3$ consists of the same $15\Omega $ resistor and $5\Omega$ resistor, along with another $5\Omega$ resistor and a $10\Omega$ voltage source from $-$ to $+$. Determine the mesh currents and find the power in the current sources. 
+\end{example}
+
+We note that we have a supermesh in which $i_1=3A$ is already known. From the supermesh dependence equation, we have 
+$$i_2-i_1=2A,$$
+so $i_2=5A$. For $i_3$, we have 
+$$5i_3 -10V+15(i_3-i_2) + 5(i_3-i_1) = 0.$$
+Solving for $i_3$, we obtain $i_3=4A$. 
+Now to determine power, we need to find the unknown voltages $V_{2A}$ and $V_{3A}$ from $-$ to $+$ in the forward direction across the $2A$ and $3A$ current sources respectively. 
+\begin{remark}
+ASK HOW THE DIRECTION OF VOLTAGE IS ASSIGNED.
+\end{remark}
+For $i_2$, we have $$-V_{2A} + 15(i_2-i_3)+10i_2 = 0,$$
+so $V_{2A} = 65V$. The power in the $2A$ current source is therefore $P = -(65V)(2A) =-130W$. 
+For $i_1$, we have $$-V_{3A} + 5(i_1-i_3) + V_{2A} + 10(i_1) = 0,$$
+so $V_{3A} = 90V$. Likewise, the power over this current source is $P = -(90V)(3A) = -270W$. 
+In both cases, we note that the power is supplied. 
+
+\subsection{Summary of Node-Voltage and Mesh-Current Methods}
+
+When choosing between Node-Voltage and Mesh-Current methods, we pick the method with fewer equations. For Node-Voltage, this means looking for nodes with voltage sources attached. This may eliminate equations through a good choice of reference node. For Mesh-Current, this means looking for meshes where mesh currents are fixed in value by current sources. So far, we have covered Circuit Simplification, KVL, KCL, Ohm's Law, Node-Voltage, and Mesh-Current. We now proceed to cover Thevenin Theorem and the Principle of Superposition. 
+
+\subsection{Thevenin and Norton Equivalent Circuits}
+
+\begin{theorem}[Thevenin's Theorem]
+A DC electrical network containing voltage sources, current sources, resistors, and two terminals is electrically equivalent to a network with one voltage source and one resistor. 
+\end{theorem}
+This gives us a way to arbitrarily complex ``two-terminal" circuits, modeled as Thevenin voltage and Thevenin resistance, denoted as $V_t$ and $R_t$ respectively.
+ 
+ 
+\section{February 10, 2017}
+\subsection{Thevenin Circuits}
+
+The voltage-current characteristics are identical at the two terminals. $V_t$ and $R_t$ are found by considering two operating extremes. In an open circuit comprised of independent and dependent sources and resistors, the current leading from the negative to the positive node is $i=0$, where $V_{DC}$ is the voltage across. In the Thevenin equivalent, we can replace the circuit with an independent current source $V_t$ with a resistor $R_t$, with a current of $i=0$ leading from the negative to the positive nodes. The voltage across the positive and negative node is $V_t$, so 
+$$V_t = V_{DC}.$$
+
+In a short circuit comprised of independent and dependent sources and resistors, the current is $i_{sc}$, which forms a closed loop. The Thevenin equivalent would replace the sources with an independent voltage source $V_t$, and the resistors with $R_t$. Thus, since $ V=iR$, we can obtain the following expressions for current and resistance, $$i_{sc}  =\frac{V_t}{R_t} = \frac{V_{DC}}{R_t},$$
+$$R_t = \frac{V_{DC}}{i_{sc}}.$$
+
+Determining a Thevenin equivalent is two separate analysis problems. We first need to find $V_t$, and then find $R_t$. 
+
+\begin{example}
+Let there be a node $x$, which connects to node $b$, which leads to a $20\Omega$ resistor before reaching node $y$. Node $b$ also connects to a $15\Omega$ resistor that leads to node $a$. Node $a$ leads to a $10\Omega $ resistor that leads to $y$, and also leads to a path with a $5\Omega$ resistor connected to a $10V$ voltage source from $+$ to $-$ that passes to a reference node before reaching node $y$. Find the Thevenin equivalent at terminals $x$, $y$. 
+\end{example}
+
+We first find $V_t$, where $V_t = V_{DC}$. Using the node-voltage method, the open-circuit voltage will be $V_b$. Thus, at node $a$,
+$$\frac{V_a-10}{5} + \frac{V_a}{10} + \frac{V_a-V_b}{15} = 0.$$
+At node $b$, we have
+$$\frac{V_b-V_a}{15} + \frac{V_b}{20} = 0.$$
+Solving this system of equations, we find that $V_a = 6.087V$ and $V_b = 3.478V$. Thus, 
+$$V_t = V_b = V_{DC} = 3.478V.$$
+Now, we must find $i_{sc}$. Since there is a parallel combination with the branch containing the $20\Omega$ resistor, we note that the equivalent resistance with the short circuit is $0\Omega$. $V_b$ is now connected directly to the reference node, so $V_b = 0$. Similarly, we note that $i_1$, the current through the $20\Omega$ resistor is 0, since $V_b/20 = 0$. Thus, all current is in $i_{sc}$, with none in the $20\Omega$ resistor. We can thus redraw the circuit. We have eliminated node $b$, and are left with a current $i_{sc}$ on the branch containing the $15\Omega$ resistor. The remaining parts of the circuit remain unchanged. We find again the voltage at node $A$,
+$$\frac{V_a-10}{5} + \frac{V_a}{10}+ \frac{V_a}{15} = 0.$$
+Note above that $V_a/15$ is $i_{sc}$. Solving this, we find that $V_a = 5.455V$. Thus, ,
+$$i_{sc} = \frac{V_a}{15} = 0.364A,$$
+$$R_t = \frac{V_{DC}}{i_{sc}}  = \frac{3.478V}{0.364A} = 9.56\Omega.$$ Therefore, the Thevenin equivalent circuit is node $y$, followed by $V_t = 3.478$ from $-$ to $+$, and a resistance $R_t = 9.56\Omega$ that leads to node $x$. 
+
+
+
+\section{February 13, 2017}
+
+\subsection{Thevenin Circuit Examples}
+
+\begin{example}
+Let there be a node $x$ which leads to node $b$. There is a $1A$ current source in the reverse direction to node $y$, and a $5\Omega$ resistor to node $y$ from node $b$. Node $b$ also leads to a $20\Omega$ resistor before reaching node $a$. Node $a$ is connected to node $y$ through a $2A$ current in the reverse direction, and a $10\Omega$ resistor. Node $a$ is also connected to a $10\Omega$ resistor that leads to a voltage source from $+$ to $-$, which crosses a ground before reaching $y$. Find the Thevenin equivalent. 
+\end{example}
+
+We will find $V_t$ using the node-voltage method, where $V_t = V_b$. At node $a$, we have 
+$$\frac{V_a-10}{10} - 2 + \frac{V_a}{10} + \frac{V_a-V_b}{20} = 0.$$
+At node $b$, we have 
+$$\frac{V_b-V_a}{20} + \frac{V_b}{5} -1 = 0.$$
+Solving this system for $V_b$ gives $V_t = V_b = 6.667V$. 
+We now need to find $i_{sc}$. Generally, when we solve for $i_{sc}$ by connecting the nodes $x$ and $y$, we usually treat this circuit as a new analysis problem. In this case, node $b$ is again attached to the reference node, so $V_b  = 0$. We once again perform node-voltage on nodes $a$ and $b$ to find,
+$$\frac{V_a-10}{10} - 2 + \frac{V_a}{10} + \frac{V_a-0}{20} = 0,$$
+$$\frac{0-V_a}{20} + \frac{0}{5} -1 +i_{sc}= 0.$$
+Note above that the $5\Omega$ resistor is shorted out since there is no current there. We find that $i_{sc} = 1.6A$ by solving the system. Therefore, 
+$$R_t = \frac{V_t}{i_{sc}} = \frac{6.667V}{1.6A} = 4.1667\Omega.$$
+The Thevenin equivalent is node $x$ connected to a resistor of $R_t = 4.1667\Omega$, followed by a voltage source from $+$ to $-$ of $V_t   = 6.667V$ that ends at node $y$. 
+
+
+\subsection{Shortcut Method for Thevenin Resistance}
+If a circuit has no dependent sources, then we may use an alternative method to find $R_t$ by zeroing the sources. We zero their values and use their ``effective" resistance. For instance, suppose we have nodes $a$ and $b$ connected by an independent voltage source from $+$ to $-$. If we let $V=0$, the source becomes a short circuit. That is, the effective resistance becomes $0\Omega$. If we have an independent current source instead from $b$ to $a$, we can let $i=0$, so the source becomes an open circuit, The effective resistance would therefore become $\infty \Omega$. 
+
+\begin{example}
+Consider the example directly above. Using $V_t  = 6.667V$, zero the sources to find $R_t$. 
+\end{example}
+
+We note that we have removed the voltage source and replaced it with a short circuit, and replaced the two current sources with open circuits. This becomes a series-parallel combination of resistors. We find that the resistance is $R_t = 4.1667\Omega$ when we resolve this. 
+
+The above short-cut method cannot be used if a circuit has dependent sources. When there are dependent sources, we must determine $i_{sc}$ to evaluate $R_t = V_t/i_{sc}$. 
+
+
+\begin{example}
+Let node $x$ be connected to node $a$ trough a $20\Omega$ resistor. This leads to $y$ through a path with a $15\Omega$ resistor with current $i_x$, and alternatively on a path with a $2A$ independent current source in the reverse direction. Node $a$ is also connected through a  $10\Omega$ resistor and a $5i_x$ voltage source from $+$ to $-$ to ground, which leads to $y$. Find the Thevenin equivalent. 
+\end{example}
+
+First, we find $V_t$. With the terminals $x$ and $y$ in open circuit, no current flows through the $20\Omega$ resistor, so $V_t = V_{DC} = V_a$. At node $a$, node-voltage states that 
+$$\frac{V_a-5i_x}{10} - 2 + \frac{V_a}{15} = 0.$$ We determine $V_a$ by solving the system formed by this equation with the knowledge that $i_x = V_a/15$ from the location of $i_x$. We find that $V_a = V_t = D_{DC} = 15V$. Now, $i_{sc}$ can be found by considering the closed circuit. In this case, $i_{sc} = V_a/20$. By applying node-voltage, we find that 
+$$\frac{V_a-5i_x}{10} - 2 + \frac{V_a}{15} +\frac{V_a}{20}= 0.$$
+Once again equating this with $i_x=V_a/15$, we find that $V_a = 10.91V$ in this second scenario. Therefore, 
+$$i_{sc} = \frac{V_a}{20} = 0.545A,$$
+$$R_t = \frac{V_t}{i_{sc}} = \frac{15V}{0.545A} = 27.5\Omega.$$
+The Thevenin equivalent therefore consists of nodes $x$ and $y$ connected by a $27.5\Omega$ resistor and a $15V$ voltage source. 
+
+\begin{example}
+Let node $x$ be connected to node $c$. Node $c$ is connected to node $b$ through a  $15\Omega$ resistor, to $a$ through a $10\Omega$ resistor with voltage $V_x$ from $+$ to $-$, and to ground leading to $y$ through a $20\Omega$ resistor. Node $b$ is connected to ground to $y$ through a $2V_x$ current source in the reverse direction, and to node $a$ through a $5\Omega$ resistor. Node $a$ is connected to a $10V$ voltage source from $+$ to $-$ leading through ground to $y$. Find the Thevenin equivalent.
+\end{example}
+
+We need to first solve for $V_t = V_{DC} = V_c$. Not that $V_a = 10V$. Solving for node-voltage at $b$ and $c$, we find respectively,
+$$\frac{V_b-10}{5} -2V_x+\frac{V_b-V_c}{15} = 0,$$
+$$\frac{V_c-V_b}{15} + \frac{V_c}{20} + \frac{V_c-10}{10} = 0.$$
+For the dependent current source, we have 
+$$V_x = V_a-V-c = 10-V_c.$$
+We find that $V_c = V_t = V_{DC} = 9.29V$. We now find $R_t$. Since there is a dependent source, there are no shortcuts. Thus, the $20\Omega$ resistor is short circuited. There is no voltage across, so there is also no current through it. Node-voltage through $b$ is,
+$$\frac{V_b-10}{5} -2(V_a-V_c)+\frac{V_b-V_c}{15} = 0.$$
+However, we have established that $V_a = 10V$ and now $V_c = 0V$. We find that $V_b = 82.5V$ from this equation. Applying node-voltage to node $c$, 
+$$\frac{V_c-V_b}{15}  + \frac{V_c-10}{10} +i_{sc}= 0.$$ Substituting $V_b = 82.5V$ and $V_c = 0V$, we find that $i_{sc} = 6.5A$. Thus, 
+$$R_t = \frac{V_t}{i_{sc}} = \frac{9.29V}{6.5A} = 1.43\Omega.$$
+
+
+\section{February 15, 2017}
+\subsection{Thevenin Equivalent Circuits Conclusion}
+
+The \textbf{Norton equivalent} circuit provides an alternative form to the Thevenin equivalent. Instead of specifying $R_t$ and $V_t$ in series where 
+$$V_{DC} = V_t,$$
+$$i_{sc} = \frac{V_t}{R_t},$$
+the Norton equivalent replaces this with a current source $i_n$ in parallel with a resistance $R_t$, where
+$$V_{DC} = i_nR_t = V_t,$$
+$$i_{sc} = i_n = \frac{V_t}{R_t}.$$
+
+Thevenin and Norton equivalents are related by a source transformation (from voltage source and series resistance to current source and parallel resistance and vice versa).
+
+\begin{example}
+Consider the Thevenin equivalent composed of the node $x$ connected to a resistance of $R_t = 1.43\Omega$, and a voltage source of $V_t = 9.29V$ leading to node $y$. Determine the Norton equivalent. 
+\end{example}
+The Norton equivalent would have a parallel resistance of $R_t = 1.43\Omega$ with a current source of $i_n = V_t/R_t = 6.5A$. 
+
+Source transformations act as a handy simplification. Circuits can often be simplified by source transformations. Whenever we only have a voltage source from $-$ to $+$ followed by a resistance in series, we can replace it with a current source equalling $i = V/R$ along with the original resistance in parallel. 
+
+\begin{example}
+Simplify the circuit consisting of node $a$ to ground. There are three paths from $a$ to ground. The first path is across a $10\Omega$ resistor followed by a $10V$ voltage source. The second path is across a $20\Omega$ resistor followed by a $20V$ voltage source. The third path is across a $20\Omega$ resistor followed by a $10V$ voltage source. 
+\end{example}
+
+We can replace the first two voltage source with a $1A$ current source, and the last voltage source with a $i = V/R = 10V/20\Omega = 0.5A$ current source. All circuit elements are now in parallel. We can now determine the total current, which can be replaced with a $2.5A$ current source. The resistors in parallel give an effective resistance of $5\Omega$. Thus, the final circuit becomes a $2.5A$ current source connected to a $5\Omega$ resistor. The voltage across the resistor is 
+$$V = iR = 2.5A(5\Omega) =  12.5V.$$
+
+\subsection{Principle of Superposition}
+
+This is a fundamentally important concept, and often a required method in AC circuit analysis. We first present this for DC circuits. The method is as follows:
+\begin{enumerate}
+	\item Let only one independent source be active.
+	\item Zero all other independent sources. 
+	\item Determine the response $r'$ (voltage or current) at the desired location in the circuit. 
+	\item Repeat one at a time for all other independent sources in the circuit. That is, find $r''$, $r''',$ etc.
+\end{enumerate}
+The \textbf{principle of superposition} states that the total response r (voltage or current), is the sum of the individual responses,$$r = r'  +r'' + ...+ r^{(n)}.$$
+\begin{remark}
+Recall that removing current sources leaves an open circuit, while removing a voltage source leaves a short circuit.
+\end{remark}
+\begin{example}
+Let there be a $50V$ voltage source from $-$ to $+$ with current $i_x$. This splits into two paths at node $a$ with one leading through a $20\Omega$ resistor to node $c$, and another leading through a $12\Omega$ resistor to node $b$. Node $b$ leads to node $c$ through an $8\Omega$ resistor that connects to a $30V$ voltage source from $-$ to $+$ before reaching the $50V$ source. Node $b$ also leads to the $50V$ source through a $20A$ current source in the reverse direction. Find $i_x$ by superposition.
+\end{example}
+
+First, we will consider the $50V$ source by itself. The $12\Omega$ and $8\Omega$ resistors are now in series. This is in parallel with a $20\Omega$ resistor, so the effective resistance is $10\Omega$. Thus, $$i_x' = \frac{V}{R} = \frac{50V}{10\Omega} = 5A.$$ Now, considering the $20A$ source by itself, we note that the endpoints for the $20\Omega$ resistor at nodes $a$ and $c$ are connected together. This means that $V_a = V_c$, so there are $0V$ and $0A$ across this resistor. Thus, we ignore this $20\Omega$ resistor. We therefore have a circuit with a $20A$ current source with resistances of $12\Omega$ and $8\Omega$. We use a current divider to find $-i_1$ in the loop with the $12\Omega$ resistor, in order to find $i_x''$, since
+$$i_x'' = i_1 = -\frac{8}{8+12}*20A = -8A.$$ 
+Lastly, considering the $30V$ source by itself, we simply have the $30V$ source along with three resistors. The total resistance is $10\Omega$, so the current is 
+$$i_x''' = \frac{V}{R} = \frac{30V}{10\Omega} = 3A.$$
+Thus, by the principle of superposition, 
+\begin{align*}
+i_x &= i_x' + i_x'' + i_x'''\\
+&= 5A - 8A + 3A \\&= 0A
+\end{align*}
+
+\section{February 27, 2017}
+\subsection{Principle of Superposition Cont'd}
+With dependent sources, we can only zero independent sources. 
+
+\begin{example}
+SA $10V$ source from $-$ to $+$ is connected to a $5\Omega$ resistor through a current $i_x$. This leads to a node that branches to a $10\Omega$ resistor and a $2i_x$ voltage source from $+$ to $-$, and also branches to a $2A$ current source in the reverse direction with voltage $V_x$ from $+$ to $-$. Find $V_x$.
+\end{example}
+
+Considering the $2A$ source alone, we use node voltage at node $a$ where they connect, and designate the ground as the other end of the $2A$ source. Thus,
+$$\frac{V_a}{5} - 2 + \frac{V_a -2i_x'}{10} = 0.$$
+Additionally, we know that 
+$$i_x' = -\frac{V_a}{5},$$
+so solving this gives $V_a = 5.88V$. Thus, $V_x' = 5.88V$.
+Now, we consider the $10V$ source acting alone. Once again considering node $a$, we have
+$$\frac{V_a-10}{5} + \frac{V_a-2i_x''}{10} = 0.$$
+We also note that 
+$$i_x'' = \frac{10-V_a}{5}.$$
+Solving this system gives $V_a = V_x'' = 7.06V.$
+Finally, by superposition, we have 
+\begin{align*}
+V_x &= V_x' + V_x'' \\
+&= 5.88V + 7.06V\\
+&= 12.94V
+\end{align*}
+
+\subsection{Operational Amplifiers}
+An \textbf{operational amplifier (op amp) }is a complex electronic circuit that implements a voltage-controlled voltage source. There are many important practical engineering examples including high-speed video amplifiers, microelectronic filters (telecommunications - huge industry), and instrumentation (precision measuring devices). Invented in 1968, it was originally used to perform operations in ``analog" computers. It was used to perform operations such as addition, integration, and multiplication on voltages and currents. 
+
+Starting at node $a$, the non-inverting terminal, we reach a resistance $R_i$, and then reach node $b$, the inverting terminal. Node $a$ is $+$, while node $b$ is $-$, with a voltage of $V_d$ across. Now, we have another starting at node $c$, passing through a resistor of $R_0 = 50\Omega$ (not $0\Omega$), a dependent voltage source of $AV_d$ from $+$ to $-$, leading to node $d$. $R_i \approx 1M\Omega$ (not $\infty$), and $A = 100000$ (not $\infty$).
+
+Since the op-amp is an electronic circuit, it requires an external source to operate. An example would be a ground connection from both end nodes, each leading to a voltage source from $-$ to $+$, with one holding a positive voltage, and the other a negative voltage. The path from the one holding the negative voltage meets the other path through a triangle from $-$ to $+$. the triangle has a vertex extending to a node, and two nodes extending from the side opposite to this vertex. 
+
+\subsection{Key Properties - Summing-Point Constraints}
+\begin{enumerate}
+	\item \textbf{Virtual Short Circuit}: For any practical circuit, $V_0$ must be finite-valued, so $\|V_0\| < \infty$. For an ideal op-amp, $A = \infty$, and $$V_0 = AV_d.$$ Thus, we can rearrange this to find that $V_0/A = V_d$. Since $A = \infty$, this gives 
+	$$V_d = 0.$$ That is, there is no voltage across input terminals. 
+	\item \textbf{Virtual Open Circuit}: For an ideal op-amp, $R_i = \infty$.
+\end{enumerate}
+
+The circuit symbol for op amps is shown as a two ground connections connected to independent voltage sources $V_1$ and $V_2$, both from $-$ to $+$, leading to the op amp. The path leading to the negative node on the side of the triangle is the \textbf{inverting input (-)}. The path leading to the positive node on the side of the triangle is the \textbf{non-inverting input (+)}. The vertex of the triangle leads to a positive node. This is not connected to another ground that exists leading from a negative node. The voltage across this positive and negative node is $V_0 = A(V_1-V_2)$. 
+
+the op amp amplifies the differential input voltage $V_d$, where 
+$$V_d = V_1-V_2 \rightarrow V_0 = AV_d,$$
+where $A$ is a large number. In the model of the ideal op amp, we have currents $i_p$ and $i_n$ coming in from the paths containing $V_1$ and $V_2$ respectively. Ideally, inputs look like open circuits ($i_n = 0, i_p =0$). Inside the op amp is a voltage controlled voltage source where $V_0 = AV_d$, connected from ground, leading to $-$ to $+$, which leads out the vertex of the triangle. 
+
+The main characteristics of an ideal op amp are:
+\begin{itemize}
+	\item Infinite input resistance, so $i_n = i_p = 0$. That is, no current flows into input terminals.
+	\item $A = \infty$ ($A$ is called the \textbf{open-loop gain}).
+	\item Zero output resistance (the effective resistance of a voltage source is $0\Omega$). 
+\end{itemize}
+
+In summary, the \textbf{summing-point constraints} are:
+$$V_d = 0,$$
+$$i_n=i_p=0.$$
+Circuit analysis can then be performed through all methods while observing these constraints. Op amps are not very useful by themselves; instead we use them in circuits designed to use these constraints. They are always designed to operate with ``negative feedback" since they would be useless otherwise. In this class, we will always assume this to be the case. It is these summing-point constraints that given op amp circuits a wide diversity of important applications. 
+
+\subsection{Applying Summing-Point Constraints}
+
+\begin{example}
+Suppose ground is connected to a $5V$ source with voltage $V_p$ leading to the non-inverting input. A $2V$ voltage source is connected from the output vertex, leading to a voltage $V_n$ into the inverting input. The output splits from leading to the $2V$ source to the positive node. Determine $V_0$.
+\end{example}
+
+We know that $V_p = 5V$. Secondly, we know that $V_p = V_n = 5V$ (virtual short circuit). Thus, since $V_n - V_0 = 2V$, we solve to find that $V_0 = 3V$. Finally, the $1000\Omega$ resistor has no effect (ideally). The attached resistance does not affect voltage (since this is a property of an ideal voltage source).  
+The voltage source inside the op-amp is essentially a dependent voltage source. 
+
+\begin{example}
+Suppose we are given a ground connection leading to non-inverting input $+$. A $2mA$ current source is directed to the inverting input. Before it reaches the inverting input at $-$, it splits off into another branch that passes a $1000\Omega$ resistor. This path joins with the path leading from the op-amp to the positive node of $V_0$, where the negative node leads to ground. Determine $V_0$.\end{example}
+
+We note that $V_p=0$, and $i_p=0$. $V_n$ is also equal to 0, and since we assume infinite input resistance, $i_n=0$. Thus, the current is diverted by the op-amp input since $i_n=0$ in a virtual open circuit. Thus, across the $1000\Omega$ resistance, we have a voltage of 
+$$V_1 = (2mA)(1000\Omega)  = 2V.$$
+Thus, since $V_1 = V_n - V_0$, we have $V_0 = 0V-2V = -2V$.
+
+
+\section{March 1, 2017}
+\subsection{Op-Amp Circuits Cont'd}
+
+There are many interesting and useful circuits that can be made. The simplest of them are some basic amplifier configurations:
+
+The \textbf{inverting amplifier} is a ground connection to the non-inverting input. There is a voltage source $V_{in}$ from $-$ to $+$ leading to a resistance of $R_1$ that leads to node $a$. This then leads to the inverting input, with another branch at $a$ leading to resistance $R_2$ which connects with the path leading from the op-amp. This leads to the positive terminal of $V_0$, where the negative terminal is connected to ground. Let us demonstrate an easy way to analyze op-amp problems:
+\begin{enumerate}
+	\item All of the interesting properties occur at the op-amp input terminals. This is almost always our starting point. 
+	\item Node equations at the input terminals tend to greatly simplify the job. 
+	\item Seldom are we required to write node equations at the op-amp outputs. This is usually taken care of by the second point above. 
+\end{enumerate}
+With a node equation at $a$, the summing-point constraints tell us that $i_n=i_p=0$, and $V_a=0$ since $V_d$ across the input terminals is 0. Thus,
+$$\frac{V_a-V_{in}}{R_1} + \frac{V_a-V_0}{R_2} + i_n = 0,$$
+where $i_n=0$. Since we already know $V_a = 0$, we find that $$V_0 = -\frac{R_2}{R_1}V_{in}.$$ This may also be written as 
+$$Av = \frac{V_0}{V_{in}} = -\frac{R_2}{R_1},$$
+where $A$ is the closed-loop gain. We did not write an equation at node $V_0$. Doing so, we obtain
+$$\frac{V_0-V_a}{R_2} + i = 0$$ where $i$ is the unknown current flowing to the output end of the op-amp. If we need $i$, then this is the equation that we use. However, since we were not asked to determine $i$, we can omit this step. 
+
+The \textbf{non-inverting input} is similar to the inverting amplifier, except that $V_{in}$ is moved to the non-inverting $(+)$ terminal. The summing-point constraint tells use that $i_n=i_p = 0$, and $V_a = V_{in}$ since both the $+$ and $-$ terminals are at $V_{in}$. Thus, at node $a$, we have 
+$$\frac{V_a}{R_1} + \frac{V_a-V_0}{R_2} + i_n = 0,$$
+where $i_n=0$. Since $V_a=V_{in}$, we can solve this to find that 
+$$V_0 = \left(1+\frac{R_2}{R_1}\right)V_{in},$$
+which may be written as 
+$$Av = \frac{V_0}{V_{in}} = 1+\frac{R_2}{R_1},$$
+where $Av$ is the closed-loop gain. Note the result is positive (non-inverting amplifier). 
+
+
+\section{March 3, 2017}
+\subsection{Op-Amp circuits Cont'd}
+
+Another useful inverting amplifier circuit consists of two voltage sources connected from ground from $-$ to $+$, with one being $V_a$ and the other $V_b$. These encounter resistances of $R_A$ and $R_B$ respectively before connecting at node $a$. This leads to the inverting input with a current $i_n$, and also leads to a path that connects to a resistance $R_f$ before connecting with the output of the op-amp. This leads to the positive terminal of $V_0$, wth the negative terminal connected to ground. A ground connection with current $i_p$ is connected to the non-inverting input. As before, we can write a node equation at node $a$,
+$$\frac{V_a-V_A}{R_A} + \frac{V_a-V_B}{R_B} + i_n + \frac{V_a-V_0}{R_f} = 0,$$
+where $i_n=0$. The op-amp imposes $V_a = 0$, $i_n=i_p=0$, so we find $V_0$ where 
+$$\frac{0-V_A}{R_A} + \frac{0-V_B}{R_B}  + \frac{0-V_0}{R_f} = 0,$$
+so $$V_0 = -\frac{R_f}{R_A}V_A-\frac{R_f}{R_B}V_B.$$
+If we choose $R_A = R_B = R$, then we obtain 
+$$V_0 = -\frac{R_f}{R}(V_A+V_B).$$
+This is in inverting \textbf{summing amplifier} (for instance, this is a part of an audio mixing circuit. 
+
+The \textbf{differential amplifier} is another important and very important configuration. Ground is connected to both $V_1$ and $V_2$. $V_1$ connects to a resistor $R_3$ before reaching node $B$. This is connected to ground through a resistor $R_4$ and to the non-inverting input with $i_p$. $V_2$ is connected to resistance $R_1$ before reaching node $A$. Node $A$ leads to the inverting input with $i_n$, and also branches to $R_2$ which reconnects with the output of the op-amp. This leads to the positive terminal of $V_0$, with the negative terminal leading to ground. This amplifier combines both an inverting and non-inverting amplifier. From the node equations at $A$ and $B$, 
+$$\frac{V_A-V_2}{R_1} + \frac{V_A-V_0}{R_2} + i_n = 0,$$
+$$\frac{V_B}{R_4} + \frac{V_B-V_1}{R_3} + i_p = 0,$$
+where $i_n=i_p=0$. 
+From the node equation at $B$, we find 
+$$V_B = V_1\left(\frac{R_4}{R_3+R_4}\right),$$
+which is the voltage divider equation! Since there is no current that can flow because $i_p=0$ (virtual open circuit), then $R_3$ and $R_4$ are in series. Now, we substitute $V_A = V_B$, where $V_B$ is shown above, we find that 
+$$V_0 = \left(\frac{R_1+R_2}{R_1}\right)\left(\frac{R_4}{R_4+R_3}\right)V_1 - \left(\frac{R_2}{R_1}\right)V_2.$$
+If we let $R_4=R_2$ and $R_3=R_1$, then we obtain 
+$$V_0 = \frac{R_2}{R_1}(V_1-V_2),$$
+which is the amplified voltage difference. 
+
+\section{March 6, 2017}
+\subsection{Examples of Other Op-Amp Circuits}
+
+\begin{example}
+Consider the a ground connection to the non-inverting input with $i_p=0$. A ground connection to $V_{in}$ from $-$ to $+$ passes through $R_1$ before reaching node $a$. This leads to the inverting input with $i_n$ and to node $b$ through a resistance of $R_2$. At node $b$, we have a connection to ground through a resistance of $R_3$, and a connection to the output of the op-amp through resistance $R_4$. This is connected to the positive terminal of $V_0$ with the negative terminal connected to ground. Determine $V_0$. 
+\end{example}
+
+At node $a$, we have 
+$$\frac{V_a-V_{in}}{R_1} + i_n + \frac{V_a-V_b}{R_2}=0,$$
+where $i_n=0$. Since we have $V_a=0$, we have 
+$$-\frac{V_{in}}{R_1} - \frac{V_b}{R_2} = 0.$$For node $b$, we have 
+$$\frac{V_b-V_a}{R_2} + \frac{V_b}{R_3} + \frac{V_b-V_0}{R_4} = 0.$$
+Thus, $$V_0 = R_4\left(\frac{1}{R_2} + \frac{1}{R_3} + \frac{1}{R_4}\right)V_b.$$
+Substituting the node equations, we get 
+$$V_0 =- \frac{R_4R_2}{R_1}\left(\frac{1}{R_2} + \frac{1}{R_3} + \frac{1}{R_4}\right)V_{in}.$$
+
+\begin{example}
+Consider the differential amplifier with $V_1$ connected to a $1000\Omega$ resistor before reaching node $b$, which is connected to ground through a $1000\Omega$ resistor and leading to the non-inverting input.$V_2$ reaches node $a$ through a $2000\Omega$ resistor leading to the inverting input. Node $a$ also branches through a $2000\Omega$ resistor to join with the output of the op-amp. Solve for $V_0$.
+\end{example}
+
+First, we start with what we already know for certain. Since $i_p=0$, the resistors are in series, so this is a voltage divider at the positive input terminal. Thus, $V_a = V_b = V_1/2$. At node $a$, we have 
+$$\frac{V_a-V_2}{2000} + \frac{V_a-V_0}{2000} + i_n = 0,$$
+where $i_n = 0$. Thus, $V_0 = 2V_a-V_2$. Substituting the equations, we obtain 
+$V_0 = V_1-V_2$.
+
+\begin{example}
+Suppose we have a ground connection to $V_{in}$ from $-$ to $+$ leading to a $4000\Omega$ resistance to node $a$. Node $a$ connects to the inverting input terminal and also through a $500\Omega$ resistor to node $b$. Node $b$ is connected from the output of the op-amp, and is also connected to node $c$ through a $1000\Omega$ resistor. Node $c$ connects to the non-inverting input and to ground connected to $V_{in}$ through a $4000\Omega$ resistor. Find $V_a$. 
+\end{example}
+
+As always, we first consider what happens at the input terminals. At node $a$, 
+$$\frac{V_a-V_{in}}{4000} + i_n + \frac{V_a-V_b}{500} = 0,$$
+where $i_n=0$. From the summing point constraints, we know that $V_a = V_c$. Thus, we have two unknowns. At node $c$, we have
+$$\frac{V_c-V_b}{1000} + i_p + \frac{V_c}{4000} = 0,$$
+where $i_p=0$. We solve these equations to get $V_a = -V_{in}$. Notice that we did not have to write an equation at node $b$. This op-amp circuit is emulating a negative resistance! Consider that $V_a = -V_{in}$, so 
+$$i = \frac{V_{in} - (-V_{in})}{4000} = \frac{2V_{in}}{4000}.$$ Thus, resistance is 
+$$R = \frac{V_a}{i} = -\frac{V_{in}}{i} = -\frac{V_{in}}{\frac{2V_{in}}{4000}} = -2000\Omega.$$
+
+\begin{example}
+Consider the following two op-amp problem. We are presented a $5V$ source from $-$ to $+$ from ground through a $20k\Omega$ resistor to node $d$. This is also connected to a $10k\Omega$ resistance from ground, and also leads to the non-inverting input. The output leads to $V_0$ and also through a $100k\Omega$ resistor to node $c$. The inverting input connection is attached to node $a$. Node $c$ is attached to the inverting input of the second op-amp, and is also connected to node $b$ through a $40k\Omega$ resistor. Node $b$ is also connected to the output of the second op-amp and leads to $a$ through a $10k\Omega$ resistor. Node $a$ is connected through a $20k\Omega$ resistor to a $1V$ source from $+$ to $-$ leading to ground. The non-inverting input of the second op-amp is connected to ground. Determine $V_0$. 
+\end{example}
+
+On the first op-amp, $i_{n1} = 0$, so we have a simple voltage divider. Thus
+$$V_d = \frac{10}{10+20}*5 = \frac{5}{3}V.$$ We note that this must also be the voltage at $a$. Additionally, we know that $V_c=0V$ since it is the inverting terminal while the non-inverting terminal of the second op-amp has $0V$. We now solve a node equation at node $a$,
+$$\frac{V_a-1}{20} + i_{n1} + \frac{V_a-V_b}{10} = 0,$$
+where $i_{n1} = 0$. Since we know that $V_a = \frac{5}{3}V$, we determine that $V_b = 2V$. We consider the last point of interest of the input terminals at node $c$, 
+$$\frac{V_c-V_0}{100} + \frac{V_c-V_b}{40} + i_{n2} = 0,$$
+where $i_{n2} = 0$. With $V_b=2V$ and $V_c=0V$, we find that $V_0 = -5V$.
+
+\subsection{Input Resistance of Op-Amp Circuits}
+
+Consider an inverting amplifier. What want to determine the resistance seen by the source $V_{in}$. We recall that $V_a = 0$ due to the virtual short circuit. The current through the source and resistance is 
+$$i_1 = \frac{V_{in}}{R_1},$$
+so the source sees a resistance of $R_1$. Now, consider the non-inverting amplifier. We have $i_p = 0$, so 
+$$R_{in} = \frac{V_{in}}{i_p} = \infty.$$
+But this is an open circuit!
+
+\subsection{Another Application of Op-Amps - Comparators}
+
+We have shown that for an inverting amplifier, 
+$$V_0 = -\frac{R_2}{R_1}V_{in}$$
+with a closed loop gain of 
+$$Av = -\frac{R_2}{R_1}.$$
+Resistor $R_2$ is a critical component here, since if provides the required negative feedback to allow this circuit to operate. Also recall that the op-amp itself requires an external power source to operate. Thus, with a ground connection to both $-15V$ and $15V$ from $-$ to $+$, both leading to opposite sides of an op-amp, these external power sources ensure that $V_0$ can be any voltage in the range of $-15V \leq V_0 \leq 15$. Now, suppose that $R_2$ is not there. We are now running the op-amp open loop. Using the ideal model, this becomes a ground connection to $V_{i}$ to a resistance leading to the negative terminal, and a ground connection leading to the positive terminal of $V_d$. This is expressed as a ground connection to a dependent voltage source from $-$ to $+$ of $AV_d$ leading to the positive terminal, with a ground connection to the negative terminal of $V_0$. Since we have $V_d = -V_{in}$, then 
+$$V_0 = -Av_{in},$$
+where $A$ is the open loop gain which is a large number (ideally infinite). We have two cases:
+
+$$V_{in} < 0, V_0 = +[\text{huge number}],$$
+$$V_{in} > 0, V_0 = -[\text{huge number}].$$
+Here, the $[\text{huge number}]$ is limited by the external power source, so 
+$$V_{in} < 0, V_0 = +15V,$$
+$$V_{in} >0, V_0 = -15V.$$
+This behaviour makes the op-amp a very useful \textbf{voltage comparator}.
+
+
+
+
+\section{March 8, 2017}
+\subsection{Inductors and Capacitors}
+
+So far, we have considered the basic circuit elements of sources and resistors. Inductors and capacitors are dependent on electromagnetic fields. \textbf{Capacitors} are from the separation of charge that produces an electric field. \textbf{Inductors} are from the motion of charge that produces a magnetic field. Unlike resistors, these devices can store energy and return the stored energy (they are not producers of energy). 
+
+The \textbf{capacitor} is represented by the circuit symbol of two lines placed perpendicular to the circuit separating the conductor, optionally with a $C$. Like all circuit elements, the capacitor has its own important voltage-current relationship. For a current passing through the capacitor with a voltage from $+$ to $-$, we have 
+$$i = C\frac{\mathrm d V}{\mathrm d t},$$
+where $V$ is the voltage in Volts ($V$), $i$ is the current in Amps ($A$), $t$ is the time in seconds ($s$), and $C$ is the capacitance in Farads ($F$). 
+
+The capacitor has constant voltage across the terminals that results in zero current flow. That is, the current looks like an open circuit. That is, 
+$$\frac{\mathrm d V}{\mathrm d t} = 0$$ when $V$ is constant in the above expression. Furthermore, voltage cannot change instantaneously, since current would be infinite. We can manipulate the capacitance expression to find capacitor voltage in terms of current:
+$$V(t) = \frac{1}{C}\int_{t_0}^ti(t)\mathrm d t + V(t_0),$$
+where it is usually assumed that $t_0=0$. 
+
+\begin{example}
+Plot voltage over time across a capacitor $C$ through which a current $i$ is flowing from $+$ to $-$ across the circuit element. 
+\end{example}
+
+The voltage over time $V(t)$ would increase from $V(0)$ as time increases, with the slope equal to $\frac{i}{C}$. 
+
+\subsection{Power and Energy in the Capacitor}
+
+We again use the passive reference convention. When current is in the same direction as a voltage drop, $P=Vi$. This is then expressed as 
+$$P = V\left(C\frac{\mathrm d V}{\mathrm d t}\right),$$
+or as 
+$$P = i\left(\frac{1}{C}\int_0^ti(t)\mathrm d t + V(0)\right).$$
+For energy, we recall that $P = \frac{\mathrm d W}{\mathrm d t}$, so solving with integration, we obtain 
+$$W = \frac{CV^2}{2},$$
+where $W$ is energy in Joules. 
+
+\subsection{Capacitances in Series and Parallel}
+
+Applying KCL, we note that 
+\begin{align*}
+	i &= i_1+i_2+i_3\\
+		&= C_1\frac{\mathrm d V}{\mathrm d t}+ C_2\frac{\mathrm d V}{\mathrm d t}+ C_3\frac{\mathrm d V}{\mathrm d t}\\
+		&= (C_1+C_2+C_3)\frac{\mathrm d V}{\mathrm d t}\\
+		&= C_{eq}\frac{\mathrm d V}{\mathrm d t}
+\end{align*}
+Thus, capacitances in parallel add since 
+$$C_{eq} = C_1+C_2+C_3.$$
+
+\section{March 10, 2017}
+\subsection{Capacitances in Series and Parallel Cont'd}
+
+In series, we apply KVL to obtain 
+\begin{align*}
+	V &= V_1+V_2+V_3\\
+	&= \frac{1}{C_1}\int_0^ti(x)\mathrm d x + \frac{1}{C_2}\int_0^ti(x)\mathrm d x+\frac{1}{C_3}\int_0^ti(x)\mathrm d x\\
+	&= \frac{1}{C_{eq}}\int_0^ti(x)\mathrm d x
+\end{align*}
+Thus, capacitances in parallel are like parallel resistors since 
+$$\frac{1}{C_{eq}} = \frac{1}{C_1} + \frac{1}{C_2} + \frac{1}{C_3}.$$
+
+
+\begin{example}
+Given a capacitor, find the voltage for a given current waveform. Assume that there is no initial charge on the capacitor. A current $i(t)$ passes a capacitor with voltage $V(t)$ from $+$ to $-$ where $C = 500\mu F = 5*10^{-4}F$. $i(t)$ is $20mA$ from $0$ to $2$, is $0mA$ from $2$ to $3$, and is $-20mA$ from $3$ to $5$.
+\end{example}
+
+For a capacitor, we recall that $$i(t) = C\frac{\mathrm d V(t)}{\mathrm d t},$$ and $$V(t) = \frac{1}{C}\int_0^ti(x)\mathrm d x + V(0),$$ where $V(0) = 0$. For the time $0 \leq t \leq 2$, 
+\begin{align*}
+	V(t) &= \frac{1}{5*10^{-4}}\int_0^t\left(20*10^{-3}\right)\mathrm d x\\
+	&= \frac{20*10^{-3}x}{5*10^{-4}}\Big|_0^t\\
+	&= 40t
+\end{align*}
+For the time $2 < t \leq 3$,  
+\begin{align*}
+	V(t) &= \frac{1}{C} \int_2^ti(x) \mathrm d x + V(2)\\
+	&= \frac{1}{C}\int_2^t 0 \mathrm d x + V(2)\\
+	&= V(2) \\
+	&= 80V
+\end{align*}
+For the time $3 < t \leq 5$, 
+\begin{align*}
+	V(t) &= \frac{1}{C} \int_3^ti(x) \mathrm d x + V(3)\\
+	&= -\frac{20*10^{-3}x}{5*10^{-4}}\Big|_3^t + 80\\
+	&= -40(t-3)+80\\
+	&= -40t+200
+\end{align*}
+We can then sketch this on a graph of $V(t)$ and $t$ where the slope from 0 to 2 is 40, the slope from 2 to 3 is 0, and the slope from 3 to 5 is -40. At the last interval for $t>5$, we have $i(t) = 0$, so $V(t) = V(5) = 0$. Now, with the waveform for current and voltage, we can determine the waveform for power by multiplying $P = Vi$. Thus, the capacitor begins absorbing energy before giving it back. We recall that energy 
+$$W = \frac{1}{2}CV^2.$$
+
+\subsection{Inductors}
+
+The circuit symbol for the inductor is curls within the conductor with the circuit parameter for inductance $L$ underneath. The voltage-current relationship for an inductor $L$ with a voltage $V$ through which a current flows from $+$ to $-$ is given by 
+$$V = L\frac{\mathrm d i}{\mathrm d t},$$
+where $V$ is the voltage in Volts ($V$), $i$ is the current in Amperes ($A$), $t$ is the time in seconds ($s$), and $L$ is the inductance in Henrys ($H$). 
+
+For an inductor, a constant value of current causes zero voltage drop, so the inductor behaves like a short circuit. This is because 
+$$\frac{\mathrm d i}{\mathrm d t } = 0$$
+when $i$ is constant. Furthermore, current cannot change instantaneously, since this would produce infinite voltage. We can manipulate the formula to find the current through the inductor in terms of voltage,
+$$i(t) = \frac{1}{L}\int_{t_0}^tV(t)\mathrm d t + i(t_0).$$
+As before, we usually have $t_0 = 0$. 
+
+\subsection{Power and Energy in the Inductor}
+
+When current is in the same direction as a voltage drop, $P=Vi$. This is then expressed as 
+$$P = Li\frac{\mathrm d i}{\mathrm d t}.$$
+For energy, we recall that $P = \frac{\mathrm d W}{\mathrm d t}$, so solving with integration, we obtain 
+$$W = \frac{Li^2}{2},$$
+where $W$ is energy in Joules. 
+
+\subsection{Inductors in Series and Parallel}
+
+Applying KCL, we note that 
+In series, we apply KVL to obtain 
+\begin{align*}
+	V &= V_1+V_2+V_3\\
+	&= L_1\frac{\mathrm d i}{\mathrm d t} +L_2\frac{\mathrm d i}{\mathrm d t} +L_3\frac{\mathrm d i}{\mathrm d t} \\
+	&= (L_1+L_2+L_3)\frac{\mathrm d i}{\mathrm d t}
+\end{align*}
+Thus, inductances in series add since 
+$$L_{eq} = L_1+L_2+L_3.$$
+
+In parallel, we apply KCL to obtain
+\begin{align*}
+	i &= i_1+i_2+i_3\\
+	&= \frac{1}{L_1}\int_0^tV\mathrm d x + \frac{1}{L_2}\int_0^tV\mathrm d x + \frac{1}{L_3}\int_0^tV\mathrm d x \\
+		&= \left(\frac{1}{L_1}+ \frac{1}{L_2}+\frac{1}{L_3}\right)\int_0^tV\mathrm d x
+\end{align*}
+Thus, inductances in parallel are like parallel resistances since 
+$$\frac{1}{L_{eq}} = \frac{1}{L_1}+ \frac{1}{L_2}+\frac{1}{L_3}.$$
+\begin{example}
+Let an inductor of $2H$ have a voltage $V(t)$ with a current $i(t)$ flowing from $+$ to $-$. The waveform of $i(t)$ to $t$ starts from 0 and reaches $3$ at $0.1s$, then reaches $0$ at $0.2$, $-3$ at $0.3$, and $0$ at $0.4$. Given this inductor with $i(t)$, find $V(t)$, $P(t)$, and $W(t)$.
+\end{example}
+
+For the inductor, we recall that 
+$$V(t) = L\frac{\mathrm d i(t)}{\mathrm d t}.$$
+For the interval $0 < t \leq 0.1$, 
+\begin{align*}
+	V(t) &= L\frac{\mathrm d i(t)}{\mathrm d t}\\
+	&= 2\left(\frac{3}{0.1}\right)\\
+	&= 60V
+\end{align*}
+For the interval $0.1 < t \leq 0.3$, 
+\begin{align*}
+	V(t) &= L\frac{\mathrm d i(t)}{\mathrm d t}\\
+	&= 2\left(\frac{-6}{0.2}\right)\\
+	&= -60V
+\end{align*}
+For the interval $0.3 < t \leq 0.4$, 
+\begin{align*}
+	V(t) &= L\frac{\mathrm d i(t)}{\mathrm d t}\\
+	&= 2\left(\frac{3}{0.1}\right)\\
+	&= 60V
+\end{align*}
+We now sketch the $V(t)$ and $t$ graph. $P = Vi$, so we multiply both graphs to obtain the $P(t)$ and $t$ graph. For the $W(t)$ and $t$ graph, we recall that $W = Li^2/2$. Plotting this using the graphs, we note that it is never negative, meaning that it is never producing energy. 
+
+\subsection{Steady State Sinusoidal Analysis}
+
+So far, we have considered circuits in which sources are DC. We now investigate circuits where sources deliver sinusoidal (AC) currents and voltages. The methods of analysis are identical, but the arithmetic changes from real to complex. 
+
+\subsection{Sinusoidal Currents and Voltages}
+
+Let $V(t) = V_m\cos(\omega t+ \theta)$, where $V_m$ is the peak value, $\omega$ is the angular frequency measured in radians/sec, and $\theta$ is the phase angle measured in radians. This can be plotted on a $V(t)$ and $t$ graph, where $V_m$ is the highest point, and $\theta$ is the angle which the maximum height at $V_m$ is displaced on the x axis towards the right (the graph is shifted to the right by $\theta$). The sinusoid is periodic with period $T$. We have one complete period when the angle increases by $2\pi$. We note then that
+\begin{align*}
+	\omega t|_{t=T} &= 2\pi\\
+	\omega T &= 2\pi\\
+	T = \frac{2\pi}{\omega}
+\end{align*}
+\textbf{Frequency} is defined as the number of complete periods (cycles) per second, so 
+$$f = \frac{1}{T},$$
+where $f$ is the frequency in Hertz ($Hz$). We also have 
+$$\omega = \frac{2\pi}{T} \implies \omega = 2\pi f,$$
+in radians/second. By convention, we use cosine and not sine. They are related by 
+\begin{align*}
+	\sin(\omega t) &= \cos(\omega t - \pi/2)\\
+	&= \cos(\omega t - 90^{\circ})
+\end{align*}
+We say that $\sin(\omega t)$ has a phase angle of $-90^{\circ}$. 
+
+\subsection{Root-Mean-Square Values}
+We often express voltages and current in terms of their peak values $V_m$ and $i_m$, but also in terms of their \textbf{root-mean-square} (\textbf{rms}) values. Consisder power in a resistor over one period of the waveforms. Instantaneous power is 
+$$P(t) = V(t)i(t) = \frac{V^2(t)}{R}.$$
+The energy over one period is $$E_T = \int_0^TP(t) \mathrm d t.$$
+
+An important measure is the \textbf{average power} over one period, 
+\begin{align*}
+	P_{avg} &= \frac{E_T}{T}\\
+	&= \frac{1}{T} \int_0^TP(t) \mathrm d t\\
+	&= \frac{1}{T} \int_0^T\frac{V^2(t)}{R} \mathrm d t
+\end{align*}
+This can be expressed as 
+$$P_{avg} = \frac{\left(\sqrt{\frac{1}{T}\int_0^TV^2(t)\mathrm d t}\right)^2}{R} = \frac{V_{rms}^2}{R},$$
+where the square root is the ``root", the $V^2$ is the square, and the means is the term under the radical. RMS values are sometimes called \textbf{effective values}. In the real world, AC voltages are specified in rms, not peak (for instance, household voltages are $120V$). Power is also the \textbf{average power}, not instantaneous power (for instance, a $100W$ light bulb uses $100W$ of average power). 
+\subsection{Relating to DC Circuits}
+$$V(t) = V_m\cos(\omega t+\theta),$$
+where $\omega = 0$, $\theta = 0$, so 
+$$V(t) = V_m.$$
+Also,
+$$V(t) = V_{rms} = V_m,$$
+$$i(t) = I_{rms} = I_m,$$
+$$P(t) = P_{avg}.$$
+For sinusoidal voltages and currents, peaks and rms values are not equal. It can be shown that the \textbf{Sinusoidal RMS Value} is 
+$$V_{rms} = \frac{V_m}{\sqrt 2}.$$
+
+The voltage in your home is $V_{rms} = 120V$. Since $\omega = 2\pi f = 2 \pi *60Hz$, this means that
+\begin{align*}
+	V(t) &= 120\sqrt 2 \cos(\omega t + \theta)\\
+	&= 169.7\cos(120\pi t + \theta)
+\end{align*}
+
+\begin{example}
+Let $V(t) = 10\sin(1000\pi t + 30^{\circ})$. Express this as a cosine, give angular frequency, frequency in $Hz$, the rms voltage, and the average power in a $10\Omega$ resistor. 
+\end{example}
+We have 
+\begin{align*}
+	V(t) &= 10\sin(1000\pi t + 30^{\circ})\\
+	&= 10\cos(1000\pi t + 30^{\circ} + 90^{\circ})
+\end{align*}
+Thus, the angular frequency is $\omega = 1000\pi $ radians/second, and the frequency in Hertz is $f = \omega/(2\pi) = 500Hz$. The rms voltage is $V_{rms} = V_m/\sqrt 2 = 10V/\sqrt 2 = 7.071V$. The average power is therefore $P_{avg} = V^2_{rms}/R = 50V/10\Omega = 5W$. We can also sketch the instantaneous power where 
+$$P(t) = \frac{V^2(t)}{R} = \frac{100}{10}\cos^2(1000\pi t - 60^{\circ}).$$
+We can now use the identity $\cos^2(x) = \frac{1}{2}(1+\cos(2x))$ to rewrite this as 
+$$P(t) = 5+5\cos(2000\pi t - 120^{\circ}).$$ This can then be sketched on a $P(t)$ and $t$ graph where $P_{avg}$ is shown by a translation of 5 units up, and 10 is the maximum height of the waveform. 
+
+\section{March 15, 2017}
+\subsection{Phasors}
+When dealing with sinusoidal voltages and currents, we need a convenient way to add them to satisfy KCL and KVL. Consider a circuit consisting of a voltage source $V(t)$ from $-$ to $+$ in the direction of current $i(t)$. It encounters circuit elements with voltages $V_1(t)$, $V_2(t)$, and $V_3(t)$ respectively from $+$ to $-$. Let $V_1(t) = 10\cos(\omega t)$, $V_2(t) = 5\cos(\omega t - 30^{\circ})$, and $V_3(t) = 5\cos(\omega t + 90 ^{\circ})$. Find $V(t) = V_m\cos(\omega t + \theta)$. KVL must be satisfied by this circuit over all time, so 
+$$-V(t) + V_1(t) + V_2(t) + V_3(t) = 0$$
+This means that 
+$$V(t) = 10\cos(\omega t ) + 5\cos(\omega t - 30^{\circ}) + 5\cos(\omega t + 90^{\circ}).$$
+
+We need to manipulate this to the correct form. To accomplish this, we instead express voltages and currents in terms of \textbf{phasors}. Let $V_1(t) = V_1\cos(\omega t + \theta_1)$. We note that $\omega$ is usually fixed in value throughout the circuit analysis problem. We have a pair of independent parameters describing the voltage, where $V_1$ is the magnitude (amplitude) and $\theta_1$ is the phase angle. The basic idea behind phasors is that we represent this as a vector on a plane, then add the vector lengths. Consider the following example of phasor representation:
+
+$V_a(t) = V_a\cos(\omega t + \theta_a) $ implies that $ \bar{V_a}$ has a magnitude of $V_a$ and a phase angle of $\theta_a$. $V_b(t) = V_b\sin(\omega t + \theta_b)$ is the same as $V_b\cos(\omega t + \theta_b - 90^{\circ})$. This implies that $\bar{V_b}$ has a magnitude of $V_b$ and a phase angle of $\theta_b-90^{\circ}$. Similarly, for a current of $i_c(t) = I_c\cos(\omega t + \theta_c)$, this implies that $\bar{I_c}$ has a magnitude of $I_c$ and a phase angle of $\theta_c$. 
+
+
+\subsection{Complex Numbers Review}
+\begin{remark}
+The following section is just a basic review of complex numbers. This section is included for completion only.
+\end{remark}
+To manipulate phasors, we need to make use of complex numbers. Complex numbers involve imaginary numbers. Since $i$ represents currents, we shall denote the imaginary number as $$j = \sqrt{-1}.$$
+For a complex number, it is composed of a real part and an imaginary part. This can be plotted on a graph where the y axis represents the imaginary part and the x axis represents the real part of the number. Out number $x=2+j4$ for instance, would be represented as a point that is $2$ units on the real axis and $4$ units on the imaginary axis. $x$ is therefore a point on the complex plane. The \textbf{complex conjugate} of a complex number consists of the real part of the original number along with the negative of the imaginary part. That is, the sign on the imaginary part is flipped. We can convert between the rectangular and polar forms of complex numbers. The rectangular form is what has been shown, while the polar form consists of a scalar $M$ and an angle $\theta$ that the complex number forms on the complex plane. 
+
+To convert between polar in terms of $M$ and $\theta$, and rectangular in terms of $a+jb$, we note that,
+$$M = \sqrt{a^2+b^2},$$
+$$\theta = \tan^{-1}\left(\frac{b}{a}\right),$$
+$$a = M\cos(\theta),$$
+$$b = M\sin(\theta).$$
+Complex arithmetic must be done in rectangular form. Multiplication and division can be done in either form. In rectangular form, multiplication can be performed as one would normally with variables. It is important to remember that $j^2 = -1$. In division, we multiply the numerator and denominator by the complex conjugate in order to simplify. In polar form, we multiply by multiplying the magnitudes $M = M_1\cdot M_2$, and adding the angles $\theta = \theta_1+\theta_2$. To divide, we divide the magnitudes $M = M_1/M_2$ and subtract the angles $\theta = \theta_1-\theta_2$. 
+
+The key to phasors is the use of \textbf{Euler's identity},
+$$e^{j\theta} = \cos(\theta) + j\sin(\theta).$$
+Multiplying both sides by $M$, we obtain
+$$Me^{j\theta} = M\cos(\theta) + jM\sin(\theta),$$
+where the left side is the complex exponential (another way of expressing $M$ with $\theta$), and the right side is the rectangular form. 
+
+\begin{example}
+Determine the polar and rectangular forms of $x = 10e^{j30^{\circ}}$. 
+\end{example}
+We note that the polar form is simply a magnitude of $M$ with an angle of $30^{\circ}$. To compute the rectangular form, we use Euler's identity, 
+\begin{align*}
+	x &= 10e^{j30^{\circ}} \\
+	&= 10\cos(30^{\circ}) + 10j\sin(30^{\circ})\\
+	&= 8.66 + 5j
+\end{align*}
+
+\subsection{KVL and KCL Using Phasors}
+
+Our reason for using phasors in this way is because it is simpler to use complex exponentials than trigonometric identities. The key is to express cosines as complex exponentials using Euler's identity,
+$$\cos(x) = \operatorname{Re}\left(e^{jx}\right).$$
+In our original KVL example, we had 
+$$V(t) = 10\cos(\omega t ) + 5\cos(\omega t - 30^{\circ}) + 5\cos(\omega t + 90^{\circ}).$$
+Now, we can equivalently express this as 
+\begin{align*}
+V(t) &= V_1(t) + V_2(t) + V_3(t)\\
+	&= \operatorname{Re}\left(10e^{j\omega t}\right) + \operatorname{Re}\left(5e^{j\left(\omega t -30^{\circ}\right)}\right) + \operatorname{Re}\left(5e^{j\left(\omega t + 90^{\circ}\right)}\right)\\
+	&= \operatorname{Re}\left(10e^{j\omega t}\right)+\operatorname{Re}\left(5e^{j\omega t}e^{-j30^{\circ}}\right)+\operatorname{Re}\left(5e^{j\omega t}e^{j90^{\circ}}\right)\\
+	&= \operatorname{Re}\left(10e^{j\omega t}+5e^{j\omega t}e^{-j30^{\circ}}+5e^{j\omega t}e^{j90^{\circ}}\right)\\
+	&= \operatorname{Re}\left(\left(10+5e^{-j30^{\circ}}+5e^{j90^{\circ}}\right)e^{j\omega t}\right)\\
+	&= \operatorname{Re}\left(\left(10+(4.33-2.5j)+5j\right)e^{j\omega t}\right)\\
+	&= \operatorname{Re}\left((14.33+2.5j)e^{j\omega t}\right)\\
+	&= \operatorname{Re}\left(\left(14.54e^{j9.90^{\circ}}\right)e^{j\omega t}\right)\\
+	&= \operatorname{Re}\left(14.54e^{j\left(\omega t + 9.90^{\circ}\right)}\right)\\
+	&= 14.54\cos\left(\omega t + 9.90^{\circ}\right)
+\end{align*}
+We have added the three complex constant (phasors) inside the brackets separate from $e^{j\omega t}$ in Step 5 to determine the voltage. 
+
+
+
+\subsection{Summary of Phasor Summation Method}
+First, we express the cosine functions as phasors. We then add the phasors. Afterwards, we convert the result back into a cosine function.
+
+\begin{example}
+Determine $V(t) = V_1(t) + V_2(t)$ and draw the phasor diagram when $V_1(t) = 5\sin\left(\omega t + 45^{\circ}\right)$ and $V_2(t) = 10\cos\left(\omega t + 90^{\circ}\right)$. 
+\end{example}
+
+The ``Time-domain" representation (cosine function) of $V_1(t) = 5\cos\left(\omega t + 45^{\circ} - 90^{\circ}\right) =  5\cos\left(\omega t -45^{\circ}\right)$, while the time domain representation of $V_2(t)$ is as given. In phasor notation, this becomes $M_1=5$, $\theta_1 = -45^{\circ}$ and $M_2 = 10$, $\theta_2 = 90^{\circ}$ respectively. $\overline{V} = \overline{V_1} + \overline{V_2}.$ Thus, 
+\begin{align*}
+	\overline{V_1} &= 5\cos\left(-45^{\circ}\right) + j5\sin\left(-45^{\circ}\right)\\
+	&= 3.54-3.54j
+\end{align*}
+\begin{align*}
+	\overline{V_2} &= 10\cos\left(90^{\circ}\right) + j10\sin\left(90^{\circ}\right)\\
+	&= 0+10j
+\end{align*}
+Thus, converting back to polar, we have $\overline{V} = 3.54+(10-3.54)j = 3.54+6.46j$, so we obtain $$M = \sqrt{3.54^2+6.46^2} = 7.37.$$ $$\theta = \tan^{-1}\left(\frac{6.46}{3.54}\right) = 61.28^{\circ}.$$
+Convertint back to the time-domain expression, 
+$$V(t) = 7.37\cos\left(\omega t + 61.28^{\circ}\right).$$
+
+A common misconception is that $\overline{V} = 3.54+6.46j$ means that the voltage is a complex number. However, the voltage is not a complex number. The voltage is a real-valued cosine with a magnitude of $7.37$ and a plane angle of $61.28^{\circ}$. 
+
+\section{March 20, 2017}
+\subsection{Phase Relationship Between Sinusoids}
+
+Let $V_1(t) = 10\cos\left(\omega t + 45^{\circ}\right)$, so $\overline{V_1}$ composed of $M_1$ and $\theta_1$ is $M_1 = 10$ and $\theta_1 = 45^{\circ}$, and let $V_2(t) = 8\cos\left(\omega t - 45^{\circ}\right)$, so $\overline{V_2}$ composed of $M_2$ and $\theta_2$ is $M_2 = 8$ and $\theta_2 = -45^{\circ}$. We say that $V_1(t)$ is $90^{\circ}$ higher in phase than $V_2(t)$, and therefore $V_1(t)$ leads $V_2(t)$ by $90^{\circ}$. Likewise, $V_2(t)$ lags $V_1(t)$ by $90^{\circ}$. On a graph, we see this since the top of $V_1(t)$ occurs before $V_2(t)$ by a $90^{\circ}$ separation on the horizontal. 
+
+\begin{example}
+Consider the phasor diagram where $\overline{V_1}$ has a magnitude of 7 at $135^{\circ}$, $\overline{V_2}$ has a magnitude of 10 at $30^{\circ}$, and $\overline{V_3}$ has a magnitude of 8 at $90^{\circ}$. Let $f=100Hz$. Express each phasor voltage in the time domain as $V_m\cos\left(\omega t + \theta\right)$. 
+\end{example}
+
+We note that we always represent angles as the angular distance from the positive real axis. Since $\omega = 2\pi f$, with $f$ known, we solve to find that $\omega = 200\pi$ radians per second. Thus, 
+$$V_1(t) = 7\cos\left(200\pi t + 135^{\circ}\right),$$
+$$V_2(t) = 10\cos\left(200\pi t + 30^{\circ}\right),$$
+$$V_3(t) = 8\cos\left(200\pi t + 90^{\circ}\right).$$
+We note that $V_1(t)$ leads $V_2(t)$ by $105^{\circ}$ and leads $V_3$ by $45^{\circ}$. $V_3(t)$ leads $V_2(t)$ by $60^{\circ}$ and lags $V_1(t)$ by $45^{\circ}$. 
+
+\subsection{Complex Impendances}
+Now, we need to revisit the voltage-current relationship for resistors, capacitors, and inductors when voltages and currents are sinusoidal. 
+
+For the inductor, we have 
+$$V_L(t)  = L\frac{\mathrm d i_L(t)}{\mathrm d t}.$$
+Since we have $i_L(t) = I_m\cos(\omega t + \theta)$, the voltage will be 
+\begin{align*}
+V_L(t) &= LI_m\frac{\mathrm d }{\mathrm d t}\left[\cos(\omega t + \theta)\right]\\
+	&= -\omega LI_m\sin(\omega t + \theta)\\
+	&= -\omega LI_m\cos\left(\omega t + \theta - 90^{\circ}\right)\\
+	&= \omega LI_m\cos\left(\omega t + \theta + 90^{\circ}\right)
+\end{align*}
+Expressed in phasor form, $i_L(t) = I_m\cos(\omega t + \theta)$ becomes $\overline{I}_L$ with $M = I_m$ at $\theta$ degrees. On the other hand, $V_L(t) = \omega LI_m\cos\left(\omega t + \theta + 90^{\circ}\right)$ becomes $\overline{V}_L$ with $M = \omega LI_m$ at $\theta + 90^{\circ}$ degrees. 
+Through manipulation of the equation by factoring out $\overline{I}_L$ and using Euler's identity, we find that 
+$$\overline{V}_L = j\omega L \cdot \overline{I}_L,$$
+where the term $j\omega L$ is the \textbf{inductor impedance} $Z_L$. Thus, the impedance of an inductor in Ohms is also equal to $M = \omega L$ at $90^{\circ}$. We now have a phasor equivalent of  Ohm's law, since 
+$$\overline{V}_L = Z_L\overline{I}_L.$$
+Note that the voltage leads the current by $90^{\circ}$. That is, $\overline{V}_L$ is $90^{\circ}$ higher in phase than $\overline{I}_L$. 
+
+For the capacitor, we have 
+$$i_C(t) = C\frac{\mathrm d V_C(t)}{\mathrm d t}.$$
+By the same analysis, we may write 
+$$\overline{V}_C = Z_C\overline{I}_C,$$
+where $Z_C$ is the \textbf{capacitor impedance} given by 
+$$Z_C = \frac{1}{j \omega C},$$
+which can also be expressed as $M =\frac{1}{\omega C}$ at $-90^{\circ}$. 
+Note that voltage lags current by $90^{\circ}$. That is, $\overline V_C$ is $90^{\circ}$ less in phase than $\overline I_C$. 
+
+For the resistor, there is nothing new, since 
+$$\overline V_R = R \overline I_R,$$
+where $R$ is a real-valued constant (resistance). Furthermore, $\overline V_R$ and $\overline I_R$ are exactly in phase. 
+
+\subsection{Summary of Impedances}
+\begin{enumerate}
+	\item \textbf{Inductor}:
+		$$\overline V_L = Z_L\overline I_L,$$
+		$$Z_L = j \omega L.$$
+	\item \textbf{Capacitor}:
+		$$\overline V_C = Z_C\overline I_C,$$
+		$$Z_C = \frac{1}{j\omega C}.$$
+	\item \textbf{Resistor}:
+		$$\overline{V}_R = R\overline I_R,$$
+		$$Z_R = R.$$
+\end{enumerate}
+\subsection{Circuit Analysis With Phasors and Complex Impedances}
+
+KVL and KCL must always be satisfied, whether it is AC or DC. Thus, the voltages around the loop must equal 0, and the currents entering a node must equal 0. For sinusoidal AC circuits, we express KVL and KCL in terms of phasors. That is, 
+$$\overline V_1 + \overline V_2 + \overline V_3 = 0,$$
+$$\overline I_1 + \overline I_2 + \overline I_3 = 0.$$
+We also use the phasor representation of voltage-current relationships, so
+$$\overline V = Z\overline I,$$
+where $Z$ is the complex impedance of an inductor, capacitor, or resistor. The analysis procedure that we follow is 
+\begin{itemize}
+	\item Use phasor for voltages and currents. 
+	\item Use complex impedance $Z$. 
+	\item Perform circuit analysis as usual. 
+\end{itemize}
+\begin{example}[Complex Voltage Divider]
+A circuit consists of a voltage source $V(t)$ from $-$ to $+$, which passes a $10\Omega$ resistor before reaching a $500\mu F$ capacitor and a $100mH$ inductor. The voltage across the inductor from $+$ to $-$ is $V_L(t)$. $V(t) = 10\cos(100t)$. Find $V_L(t)$. 
+\end{example}
+Like resistors in series, impedances add. Thus, we need to find the impedances of everything using $\omega = 100$ radians per second. The voltage $V(t)$ is $\overline V$ with a magnitude of $M = 10$ at $0^{\circ}$. We already know the impedance of the resistor, since it is the same. So, we solve for the impedances of the capacitor and inductor, noting that $\frac{1}{j} = -j$,
+$$Z_C= \frac{1}{j\omega C} = \frac{1}{j(100)\left(500\cdot 10^{-6}\right)} = -20j \Omega,$$
+$$Z_L= j\omega L =j(100)(0.1) = 10j \Omega.$$
+Thus, since $\overline V = 10$, we have 
+\begin{align*}
+	\overline I &= \frac{\overline V}{Z_R + Z_C+Z_L}\\
+	&= \frac{10}{10-20j+10j}\\
+	&= \frac{10}{10-10j}\\
+	&= \frac{10}{10-10j}\cdot \frac{10+10j}{10+10j}\\
+	&= \frac{100+100j}{100-100j+100j-100j^2}\\
+	&= \frac{100+100j}{200}\\
+	&= 0.5+0.5j
+\end{align*}
+Now, we can determine $\overline V_L$, since $\overline V_L = Z_L\overline I = 10j \cdot (0.5+0.5j) = -5+5j$. Expressed in polar form, $V_L$ has $M = 5\sqrt 2$ and $\theta = 135^{\circ}$. Thus, 
+$$V_L(t) = 5\sqrt 2 \cos\left(100t + 135\degree\right).$$
+
+\section{March 22, 2017}
+
+\subsection{Complex Impedance Examples}
+\begin{example}
+Suppose a $10\cos(50t)$ voltage source connected to ground from $-$ to $+$ is connected to a $1000\mu F$ capacitor that reaches node $a$. This connects to ground through a $10\Omega$ resistor, and to a $400mH$ inductor to node $b$. Node $b$ is connected to ground through a $5\sin(50t$ current source in the reverse direction. Determine $V_a(t)$ and $V_b(t)$. 
+\end{example}
+
+In terms of complex impedances, we have 
+$$Z_C = \frac{1}{j\omega c} = \frac{1}{j(50)\left(1000*10^{-6}\right)} = -20j\Omega,$$
+$$Z_L = j\omega L = j(50)\left(400*10^{-3}\right)  = 20j\Omega,$$
+$$Z_R = 10\Omega.$$
+Now, the voltage expressed in phasor form has $M = 10$ and $\theta = 0$. the current source in phasor form has $M = 5$ and $\theta = -90$. It is thus given by $-5j$. Now, we write node-voltage equations,
+$$\frac{\overline{V}_a-10}{-20j} + \frac{\overline{V}_a}{10} + \frac{\overline V_a- \overline V_b}{20j} = 0,$$
+$$\frac{\overline V_b - \overline V_a}{20j} -(-5j) = 0.$$
+Solving these two equations, we find that $\overline V_a = \frac{90}{-1+2j} =-18-36j$ and $\overline V_b = 82-36j$. The phasor equation of $\overline V_a$ therefore has $M = \sqrt{18^2+36^2}=40.25$ with an angle of $\theta = -\left(180^{\circ}-\tan^{-1}\left(\frac{36}{18}\right)\right) = -\left(180\degree        -63.4\degree\right) = -116.6\degree$. Similarly, the phasor equation of $\overline V_b$ has $M = \sqrt{82^2+36^2} = 89.55$ and $\theta = \tan^{-1}\left(-\frac{36}{82}\right) = -23.7\degree$. Writing this in the time-domain representation, we obtain 
+$$V_a(t) = 40.25\cos\left(50t -116.6\degree\right),$$
+$$V_b(t) = 89.55\cos\left(50t - 23.7\degree\right).$$
+
+\begin{example}
+Consider the circuit composed of a $0.01\cos\left(10^4t\right)$ current source that connects to a $1K\Omega$ resistor, an inductor with a resistance of $200j\Omega$, and a capacitor with a resistance of $-200j\Omega$, all in parallel. Find the phasor voltage $\overline V$ and all phasor currents. 
+\end{example}
+First note that $\overline I$ has $M = 0.01$ at an angle of $0\degree$. We could start by finding the total impedance $Z_{eq}$, starting the the parallel branches of $Z_C$ and $Z_L$. We find that 
+$$Z_{C,L} = \frac{(200j) \cdot (-200j)}{200j - 200j} = \infty.$$
+the inductive impedance cancels the capacitive impedance! This is called \textbf{resonance}. 
+Thus, we write node equations at $a$,
+$$-0.01+\frac{\overline V}{1000} + \frac{\overline V}{200j} + \frac{\overline V}{-200j} = 0.$$
+Solving this, we find that $\overline V = 10V$. 
+Then, 
+$$\overline I_R = \frac{10}{1000} = 0.01A,$$
+$$\overline I_L \frac{10}{200j} =-0.05jA,$$
+$$\overline I_C = \frac{10}{-200j} = 0.05jA,$$
+where $\overline I_R + \overline I_L + \overline I_C = 0.01$. 
+Note that $\overline I_C$ and $\overline I_L$ cancel. 
+
+\section{March 24, 2017}
+\subsection{Thevenin Equivalent AC Circuits}
+As for DC circuits, we can reduce an AC circuit to a Thevenin or Norton equivalent. This is accomplished in the same way as for DC circuits, with the difference being that $R_t$ is replaced with $Z_t$. 
+
+\begin{example}
+Let $V(t) = 100\cos\left(50t+45\degree\right)$ and $i(t) = 5\cos(50t)$. The circuit is composed of a voltage source connected to ground at node $b$. From node $a$, we encounter a $10\Omega$ resistor before reaching the voltage source from $+$ to $-$. Other parallel paths to node $b$ from $a$ include a path with a $10\Omega resistor$, a path with a current source $i(t)$ in the reverse direction, and a path with a $0.1H$ inductor and a $2000\mu F$ capacitor. Find the Thevenin equivalent. 
+\end{example}
+The phasor representation of the current source is $\overline I  = 5$ at an angle of 0, while the phasor representation of the voltage source  is $\overline V = 10$ at an angle of $45\degree$. In terms of phasors and complex impedances, 
+$$Z_L = j\omega L = j (50)(0.1) = 5j\Omega,$$
+$$Z_C = \frac{1}{j\omega C} = \frac{1}{j(50)\left(2000*10^{-6}\right)} = -10j\Omega.$$
+Applying a single node equation at node $a$, we have 
+$$\frac{\overline V_A - 100\left(\cos\left(45\degree\right) + j\sin\left(45\degree\right)\right)}{10} + \frac{\overline V_A}{5j-10j}-5 + \frac{\overline V_A}{10} = 0.$$
+Solving this, we obtain $$\overline V_A = \frac{120.7 + 70.1j}{2+2j}.$$ We solve this by converting to polar form to make the division easier. We find that $\overline V_t = \overline V_A = 49.4$ at $-14.4\degree$. Thus, $V(t) = 49.4 \cos\left(50t-14.4\degree\right).$
+Now, we find $Z_t$. For this example, we have no dependent sources! Thus, we zero the independent sources. This leaves us with two $10\Omega$ resistor and a $-5j\Omega$ resistor, all in parallel. Thus, 
+\begin{align*}
+	Z_t &= \left(\frac{1}{10} -\frac{1}{5j}+\frac{1}{10}\right)^{-1}\\
+	&= \left(\frac{1}{5} -\frac{1}{5j}\right)^{-1}\\
+	&= \left(\frac{-5+5j}{25j}\right)^{-1}\\
+	&= \frac{125-125j}{50}\\
+	&= \frac{5}{2}-\frac{5}{2}j \Omega
+\end{align*}
+Not ethat this is a resistor and a capacitor in series, since $Z_t$ can be expressed as a $2.5\Omega$ resistor and a capacitor with a resistance of $-2.5j\Omega$ (the negative indicates capacitance). 
+
+\section{March 17, 2017}
+\subsection{Frequency Dependent Circuits}
+The frequency-dependent nature of inductors and capacitors paves way for a wide number of applications of AC circuits. Consider the circuit consisting of a voltage source $V(t)$ from $-$ to $+$ that leads to an inductor $L$, and a resistor with voltage $V_R(t)$ from $+$ to $-$. Let $V(t)$ be as follows:
+$$V(t) = V_m\cos\left(\omega t + 0\degree\right),$$
+where $V_m$ is the constant value and $\omega$ is the angular frequency (kept as a variable). In terms of phasors and complex impedances, we replace $V(t)$ with $V_m$ at an angle of $0$, $L$ with the complex impedance $Z_L = j\omega L$, and $R$ with $\overline V_R$. This is a simple voltage divider, since 
+$$\overline V_R = \frac{R}{R+j\omega L}\cdot V_m,$$
+where $Z_L$ is \textbf{frequency-dependent}. We may write this as 
+$$\overline V_R = \frac{1}{1+j\omega \left(\frac{L}{R}\right)}\cdot V_m.$$
+Here, the magnitude and phase of $\overline V_R$ are frequency-dependent. This dependence is called \textbf{frequency response}. 
+
+In the time domain, 
+$$V_R(t) = V_R \cos\left(\omega t + \theta_R\right),$$
+where the amplitude $\|V_R\|$ is at frequency $\omega$ and $\theta_R$ is the phase of $V_R(t)$ at $\omega$. The amplitude is 
+\begin{align*}
+	\|\overline V_R\| &= V_R \\
+	&= \left|\frac{1}{1+j\left(\frac{\omega L}{R}\right)}\cdot V_m\right|\\
+	&= \frac{V_m}{\left|1+j\omega \left(\frac{L}{R}\right)\right|}\\
+	&= \frac{V_m}{\sqrt{\left(\frac{\omega L}{R}\right)^2+1^2}}
+\end{align*}
+We can graph $V_R$ against $\omega$. Doing so, we find that when $\omega$ is 0, we have $V_m$. As $\omega$ increases however, $V_R$ drops. 
+
+This is called a \textbf{lowpass filter}. Sinusoids with low frequencies come through strongly, while higher frequencies come through at a reduced amplitude. An ideal lowpass filer has the frequency response that resembles a square in that $V_R$ is $V_m$ until a certain cutoff frequency $\omega_c$ at which $V_R$ drops to 0. This can be compared to our graph, where the L-R circuit causes a less drastic descent to 0 at increased $\omega$. For the ideal filter, 
+$$V_R = \begin{cases}
+V_m, &0 \leq \omega \leq \omega_c\\
+0, &\omega > \omega_c
+\end{cases}
+$$
+We usually define the cutoff frequency as the frequency at which $V_R = \left(\frac{1}{\sqrt{2}}\right) \cdot V_m$. 
+By equating this with the expression for our L-R circuit, we find that 
+$$\frac{\omega_cL}{R} = 1.$$
+Thus, $\omega_c = R/L$ radians per second and $f_c = \omega_c/2\pi$. 
+
+There are many other extremely useful filter circuits. One such \textbf{bandstop} filter circuit that exploits the series cancellation of impedances is composed of $\overline V_{in}$ from $-$ to $+$ connected to a resistance $R$. This leads to a node which is connected to a capacitor with $Z_c = 1/j\omega C = -j/\omega C$, and an inductor $Z_L = j\omega L$, where the voltage across both the capacitor and inductor from $+$ to $-$ is $\overline V_{out}$. This leads back to the voltage source. The nodes where $\overline V_{out}$ ends and begins lead to two other nodes. Thus, we find that 
+$$\overline V_{out} = \frac{Z_L + Z_C}{Z_L+Z_C+Z_R} \cdot \overline V_{in},$$
+where the numerator will cancel at the frequency where $Z_L = -Z_C$, so $\overline V_{out} = 0$. Plotting $\overline V_{out}$ against $\omega$, we note that at $\omega=0$, we are at $V_m$. The graph then drops to 0 when $\omega L = 1/\omega C$ (resonance) before rising again with increasing $\omega$. This is called a \textbf{notch filter} and has many important applications. For instance, the ``hum" in an audio system is due to a $60Hz$ power source. 
+
+
+\section{March 29, 2017}
+\subsection{Superposition in AC Circuits}
+
+As with other methods of AC circuit analysis, the procedure is identical to that of DC circuits. However, we use complex algebra! This method is the only way to analyze circuits with sources of different frequencies. 
+
+\subsection{Power in AC Circuits}
+Consider an arbitrary complex impedance consisting of a voltage source from $-$ to $+$ of $V_m$ at an angle of 0, through which a current of $\overline I$ flows to a resistor $R$ and a complex impedance of $jX$ before returning to the negative terminal of the voltage source. The load resistance is $$Z = R+jX,$$ so that $$\|Z\| = \sqrt{R^2+X^2},$$ $$\theta = \tan^{-1}\left(\frac{X}{R}\right).$$ In the above relations, $R$ is the resistive part, while $X$ is the reactive part. We now have current phasor $\overline I$, which is 
+$$\overline I = \frac{V_m \phase{0^{\circ}}}{\|Z\|\phase{\theta}} = \frac{V_m}{\|Z\|}\phase{-\theta}.$$
+Thus, we let $I_m$ be the magnitude, so 
+$$\overline I = I_m\phase{-\theta}.$$
+We will now investigate four cases:\begin{enumerate}
+	\item Resistor
+	\item Inductor
+	\item Capacitor
+	\item General Load
+\end{enumerate}
+In a \textbf{Purely Resistive Load}, $X=0$. We have 
+$$V(t) = V_m\cos(\omega t),$$
+$$i(t) = I_m\cos(\omega t).$$
+Power is $V(t)i(t)$, so $P(t) = V_mI_m\cos^2(\omega t)$. Using the identity $\cos^2(x) = \frac{1}{2}\left(1+\cos(2x)\right)$, we obtain 
+$$P(t) = \frac{1}{2}V_mI_m\left(1+\cos(2\omega t)\right).$$
+We note that if we plot $P(t)$ against $t$, we will obtain a sinusoidal wave with the maximum at $V_mI_m$, the minimum at 0, and $P_{avg} = \frac{1}{2}V_mI_m$. The graph is always positive, as the resistor only absorbs power. 
+
+In a \textbf{Purely Inductive Load}, $R=0$ and $X>0$.
+For the inductor, $Z = j\omega L = \omega L\phase{90\degree}$, so $\theta = 90\degree$. 
+Thus, 
+$$V(t) = V_m\cos(\omega t),$$
+$$i(t) = I_m\cos\left(\omega t - 90\degree\right) = I_m\sin(\omega t).$$
+Power is $V_mI_m\cos(\omega t)\sin(\omega t)$, but we use the identity $\cos(x)\sin(x) = \frac{1}{2}\sin(2x)$ to obtain 
+$$P(t) = \frac{V_mI_m}{2}\sin(2\omega t).$$
+Plotting $P(t)$ against $t$, we find that the maximum occurs at $\frac{V_mI_m}{2}$, and the minimum occurs at $-\frac{V_mI_m}{2}$. The positive region indicates that energy is being absorbed, while the negative region indicates that energy is being given back. This is called \textbf{reactive power} - the average is zero. 
+
+In a \textbf{Purely Capacitive Load}, $R=0$ and $X<0$.
+We have $Z = \frac{1}{j\omega C} = \frac{1}{\omega C}\phase{-90\degree}$, so $\theta = -90\degree$. Thus, 
+$$V(t) = V_m\cos(\omega t),$$
+$$i(t) = I_m\cos(\omega t +90\degree) = -I_m\sin(\omega t).$$
+Power is therefore 
+$$P(t) = -\frac{V_mI_m}{2}\sin(2\omega t).$$
+This is also reactive power. For the capacitor and inductor, no average power is consumed or generated. 
+
+For a \textbf{General Load} where $R\neq 0$ and $X\neq 0$, we allow for both resistance and capacitance or inductance. Thus, we allow $\theta$ in the range 
+$$-90 \degree \leq \theta \leq 90 \degree,$$
+where the lower limit of $-90\degree$ is purely capacitive and the upper limit pf $90 \degree$ is purely inductive. We have 
+$$V(t) = V_m\cos(\omega t),$$
+$$i(t) = I_m\cos(\omega t -\theta),$$
+$$P(t) = V_m\cos(\omega t)I_m\cos(\omega t - \theta),$$
+which we can manipulate to obtain 
+$$P(t) = \frac{V_mI_m}{2}\cos(\theta)\left(1+\cos(2\omega t)\right) + \frac{V_mI_m}{2}\sin(\theta)\sin(2\omega t).$$
+Since the average of $\cos(2\omega t)$ and $\frac{V_mI_m}{2}\sin(\theta)\sin(2\omega t)$ are both $0$, this means that the average power is 
+$$P = P_{avg} = \frac{V_mI_m}{2}\cos(\theta).$$
+This is the power in Watts, absorbed by the resistive component of the total impedance. We recall that $V_{rms} = \frac{V}{\sqrt 2}$ and $I_{rms} = \frac{I}{\sqrt 2}$ to obtain 
+$$P = V_{rms}I_{rms}\cos(\theta),$$
+where $P$ is the average, or real, power. 
+Note that for a resistor when $\theta = 0\degree$, the cos term cancels out. This term is very important, and is referred to as the \textbf{power factor}, where 
+$$PF = \cos(\theta).$$
+In the general case, the \textbf{power angle} is 
+$$\theta = \theta_V-\theta_I.$$
+We often state the PF and specify whether the current leads of lags voltage. 
+
+\section{March 31, 2017}
+\subsection{Power in AC Circuits Example}
+
+\begin{example}
+A load has a leading power factor of $0.707$. Determine whether this is capacitive or inductive, and the power angle. 
+\end{example}
+
+A leading PF means that the current is leading (has a higher phase than) the voltage. Reviewing what we know, we have $Z=R+Xj = \|Z\|\phase{\theta}$. Let
+$$\overline V = V_m\phase{\theta_V},$$
+$$\overline I = I_m\phase{\theta_I},$$
+where we are given $\theta_I > \theta_V$ since the current leads the voltage. We know that $\overline I = \overline V/Z$, so $Z = \overline V /\overline I$. Thus, 
+\begin{align*}
+	Z &= \frac{V_m\phase{\theta_V}}{I_m\phase{\theta_I}}\\
+	&= \|Z\|\phase{\theta_V-\theta_I}
+\end{align*}
+We note that the power angle $\theta_V-\theta_I$ is negative because $\theta_I > \theta_V$. What we now know is that since the power factor $PF = \cos(\theta) = 0.707$, and $\theta<0$, this means that the power angle $\theta = -45\degree$. This suggests that $Z=R+Xj$, where $X<0$. The load therefore has a capacitance of $Z_C=-j/\omega C$. 
+
+Average \textbf{reactive power} is always zero. However, its instantaneous value is sinusoidal with peak value $Q$, where it is given by
+$$Q = V_{rms}I_{rms}\sin(\theta).$$
+This is flowing back and forth between the inductors/capacitors and the source. This might be a problem in large scale systems. Power companies may penalize you for reactive power. The units for reactive power are \textbf{Volt-Amperes-Reactive}, \textbf{VARs}. 
+
+\textbf{Apparent power} is a measure of the total power (average and reactive), and is given by 
+$$P_{app} = V_{rms} I_{rms}.$$
+The units of apparent power are \textbf{Volt-Amps}, \textbf{VAs}.
+For instance, a $5kW$ load, a $10kVA$ load and a $15kVAR$ load means that we have $P=5000W$, $V_{rms}I_{rms} = 10000VA$, and $Q = 15000VAR$ respectively. 
+
+\subsection{The Power Triangle and Other Power Relationships}
+
+Each of $P$, $Q$, and apparent power can be represented in a triangle. In a right triangle, 
+$P$ is the adjacent side, $Q$ is the opposite side, and $V_{rms}I_{rms}$ is the hypotenuse. The angle $\theta$ between the adjacent and the hypotenuse is the power angle, where $\theta$ is positive if inductive, and negative if capacitive. 
+
+It is easy to calculate $P$, $Q$, and apparent power directly from impedance. We have $Z = \|Z\|\phase{\theta} = R+Xj$. Additionally, we recall that $\cos(\theta) = R/\|Z\|$ and $\sin(\theta) = X/\|Z\|$. We also have 
+$$P =\frac{V_mI_m}{2}\cos(\theta) = \frac{V_mI_m}{2}\cdot \frac{R}{\|Z\|},$$
+$$I_m = \frac{V_m}{\|Z\|}.$$
+Thus, substituting $V_m$, we find that $P = I_m^2R/2$. By applying other known expressions for the variables, we obtain 
+$$P = I_{rms}^2R,$$
+$$Q = I_{rms}^2X,$$
+$$P_{app} = \sqrt{P^2+Q^2},$$
+where these expression represent the average power in $Z$, the reactive power in $Z$, and the apparent power in $Z$ respectively. 
+
+Finally, \textbf{complex power} is defined as 
+$$\overline S = \frac{1}{3}\overline V\overline I.$$
+Thus, we can expand $\overline V$ and $\overline I$ to obtain 
+\begin{align*}
+	\overline S &= \frac{1}{2}\left(V_m\phase{\theta_V}\right)\cdot \left(I_m\phase{-\theta_I}\right)\\
+	&= \frac{1}{2}V_mI_m\phase{\theta_V-\theta_I}
+\end{align*}
+where $\theta = \theta_V-\theta_I$ is the power angle. Expanding $\overline S$ into rectangular form, we obtain 
+\begin{align*}
+	\overline S &= \frac{V_mI_m}{2}\cos(\theta) + j\frac{V_mI_m}{2}\sin(\theta)\\
+	&= P + jQ
+\end{align*}
+The apparent power can then be seen to be the magnitude of the complex power, as 
+$$P_{app} = \|\overline S\| = \sqrt{P^2+Q^2}.$$
+
+\begin{example}
+We have a circuit with a voltage source of $1414$ at an angle of $30\degree$ from $-$ to $+$ through which current $\overline I$ passes. This splits off into two parallel paths that reconnect with the $-$ end of the voltage source. The first path has current $\overline I_A$ with $10kVA$, $PF=0.5$, and is leading. The second path has a current $\overline I_B$ with $5kW$, $PF=0.7$, and is lagging. Find $\overline I$ in the example below.
+\end{example}
+The first load is specified in terms of applied power $P_{app}$ in $kVA$, while the second load is specified in terms of average power $P$ in Watts. Applying the power triangle to branch $A$, we have the hypotenuse as $10kVA$, with a power factor $\cos(\theta_A) = 0.5$. We also know that it is leading. Recall that a leading power factor means that the current leads the voltage. Thus, $\theta_I>\theta_V$. Thus, $\theta_A = \theta_V-\theta_I$ has a negative angle. The power angle is therefore given by 
+$$\theta_A = -\left(\cos^{-1}(0.5)\right) = -60 \degree.$$
+We can now calculate $P_A$ and $Q_A$ for branch $A$, 
+\begin{align*}
+	P_A &= V_{rms}I_{rms}\cos(\theta_A)\\
+	&= 10000\cdot 0.5\\
+	&= 5000W
+\end{align*}
+\begin{align*}
+	Q_A &= V_{rms}I_{rms}\sin(\theta_A)\\
+	&= -10000\cdot 0.866\\
+	&= -8.66kVAR
+\end{align*}
+Analogously, we find that $\theta_B = \cos^{-1}(0.7) = 45.57\degree$. Hence, with our knowledge of $P_B$, we can find $Q_B$. We note that $\tan(\theta_B) = Q_B/P_B$, so 
+\begin{align*}
+	Q_B &= P_B\tan(\theta_B)\\
+	&= 5000\tan\left(45.57\degree\right)\\
+	&= 5.101kVAR
+\end{align*}
+The total power in both loads is therefore 
+$$P = P_A+P_B = 5kW + 5kW = 10kW,$$
+$$Q = Q_A+Q_B = -8.660 kVAR + 5.101kVAR = -3.559kVAR,$$
+$$\overline{S} = P+jQ = (10000-j3559)VA.$$
+In polar form, this is 
+$$\overline S = 10610 \phase{-19.59\degree},$$
+where the negative angle indicates that current leads voltage. We know the total complex power and voltage, so by applying $\overline S = \frac{1}{2}\overline V\overline I$, we find that
+\begin{align*}
+	\overline I &= \frac{2\overline S}{\overline V}\\
+	&= \frac{2\cdot 10610\phase{-19.59\degree}}{1414\phase{30\degree}}\\
+	&= 15.0\phase{-49.59\degree}
+\end{align*}
+\begin{remark}
+When the power factor is leading, $\theta_I>\theta_V$, so the power angle is negative. When the power factor is lagging, $\theta_I<\theta_V$, so the power angle is positive. 
+\end{remark}
+
+\section{April 3, 2017}
+\subsection{DC Motors}
+We will now study electric motors and generators. Motors convert electrical energy to mechanical energy, while generators do the reverse. This is accomplished through electromechanical conversion. 
+
+Motors (and generators) are constructed with two major components, the \textbf{stator} (stationary part) and the \textbf{rotor} (rotating part), The rotor is connected to a shaft that connects to a mechanical load. Depending on the machine type, the rotor and stator contain conductors wired in coils called \textbf{windings}. This produces interacting magnetic fields, thereby producing physical torque.  We note that \textbf{torque} is the twisting force that tends to cause rotation. The stator produces a magnetic field. This is often produced by the stator's field windings, or a permanent magnet. Motors can be found in many places (it constitutes $2/3$ of power consumed in North America):
+\begin{itemize}
+	\item Fans and Ventilation.
+	\item Vacuum Cleaners.
+	\item Rock Crushers.
+	\item Trains.
+	\item Disk Drives and Robotic Systems.
+\end{itemize}
+
+\subsection{Operating Characteristics of Motors}
+Efficiency is a very important motor parameter. We can consider a voltage source with both ends connected to a motor, providing electrical input power $P_{in}$. The motor rotates the shaft which produces mechanical output power $P_{out}$. Efficiency is defined as 
+$$\eta = \frac{P_{out}}{P_{in}}\cdot 100\%.$$
+For a DC machine, $P_{in} = Vi$ in Watts. Mechanical power output is given by 
+$$P_{out} = T_{out}\omega_m,$$
+where $T_{out}$ is the output torque in $N\cdot m$, $\omega_m$ is the angular shaft speed in $rads/sec$, and $P_{out}$ is in Watts. The angular shaft speed can be expressed as 
+$$\omega _m = n_m \cdot \frac{2\pi}{60},$$
+where $n_m$ is the shaft speed in revolutions per minute. Note that $1HP = 746W$. 
+
+\subsection{Speed Regulation}
+Depending on the motor type, speed may decrease with load. Speed regulation $SR$ is defined as 
+$$SR = \frac{n_{no-load}-n_{full-load}}{n_{full-load}}\cdot 100\%,$$
+where a smaller value is preferred. Values greater than $100\%$ are possible. 
+\begin{example}
+Given a DC motor with a $50HP$ rating, we find from measurements at the motor that $V = 220V$, $n_{no-load} = 1200rpm$, and $n_{full-load} = 1150 rpm$. Under a full (rated) load, the power loss is equal to $3350W$. At full load, find the efficiency, speed regulation, and input current. 
+\end{example}
+To find efficiency, the motor is delivery $50HP$ of power, so $P_{out} = 50\cdot 746 = 37300W$. The total power delivered plus the total lost is $P_{total} = 37300+3350 = 40650W$. Thus, this is the total input power. Efficiency is therefore 
+$$\eta = \frac{P_{out}}{P_{in}} = \frac{37300}{40650}\cdot 100\% = 91.76\%.$$
+The input current and speed regulation can also be found,
+$$i = \frac{P_{in}}{V} = \frac{40650}{220} = 184.77A,$$
+$$SR = \frac{n_{no-load}-n_{full-load}}{n_{full-load}}\cdot 100\% = \frac{1200-1150}{1150}\cdot 100\% = 4.35\%.$$
+
+\section{April 5, 2017}
+\subsection{Electrical Circuit of DC Motors}
+DC motors can be modeled with two simple circuits. The \textbf{field} consists of a current $I_F$ flowing across a field resistance $R_F$ and field windings (inductor) $L_F$, with a voltage across the entire system being $V_F$ from $+$ to $-$. The \textbf{armature} consists of a current $I_A$ flowing across an armature resistance $R_A$ and the shaft with speed $\omega_m$ and torque $T_m$. The voltage across the shaft is $E_A$ from $+$ to $-$, while the voltage across the entire system including the resistance is $V_T$ from $+$ to $-$. For a rotating DC machine, we have $\omega_m$ as the rotational speed in radians per second, and $T_m$ is the torque in Newton meters. 
+
+Since we are operating in DC, the field current reduces to simply an expression over the resistance ($L_F$ acts as a short circuit, so it is not considered). The induced armature voltage is given by 
+$$E_A = K\phi\omega_m,$$
+where $\phi$ is the magnetic flux, and $K$ is a machine constant. The total developed mechanical torque is 
+$$T_{dev} = T_m = K\phi I_A.$$
+The total developed mechanical power is 
+$$P_{dev} = T_{dev}\omega_m.$$
+Together, these three equations are the key to analyzing DC motor and generator circuits. 
+$$E_A = K\phi\omega_m,$$
+$$T_{dev} = K\phi I_A,$$
+$$P_{dev} = T_{dev}\omega_m.$$
+We normally consider $K$ and $\phi$ together, where $K\phi$ is the machine constant.
+
+\subsection{Magnetization Curve}
+The magnetization curve plots $E_A$ against $I_F$. It consists of a linear region where the two are linearly dependent, until it reaches a particular shaft speed $n_m$. We then reach magnetic core saturation, where the slope levels out to 0. This is a typical magnetization curve for a given speed. A point on this curve gives us $K\phi$. From this, we can calculate the other values. Note that we may not always obtain the same curve, but $K\phi$ can almost always be calculated from the information given. 
+
+\begin{example}
+We have a DC motor that obeys the above curve. Additionally, we have $n_m=1500rpm$, $P_{dev}=10HP$, $I_F = 3A$, $R_A=0.3\Omega$, and $R_F = 50\Omega$. Determine the developed torque, the armature $I_A$, the applied voltage $V_T$, and the efficiency.
+\end{example}
+We can immediately determine the following,
+$$\omega_mm = n_m\cdot \frac{2\pi}{60} = 157.1rads/s,$$
+$$P_{dev}=10HP\cdot 746 = 7460W,$$
+$$T_{dev} = \frac{P_{dev}}{\omega_m} = 47.49Nm.$$
+We recall that the armature circuit consists of $V_T$ attached to $R_A=0.3A$ with a current $I_A$. This then reaches the motor with an induced armature voltage $E_A$, where $P_{dev} = E_AI_A = 7460W$. The motor is where the electrical world meets the mechanical world. Making use of the equation above, we need $E_A$ to find $I_A$. From the given magnetization curve we have 
+$$E_A = 200V,$$
+$$I_F = 3A,$$
+$$n_m=1200rpm.$$
+making use of the machine equation for $E_A$, we can rearrange to obtain 
+$$K\phi = \frac{E_A}{\omega_m} = \frac{200V}{1200\cdot\frac{2\pi}{60}} = 1.59.$$
+Our motor is run at $n_m=1500rpm$, so 
+$$E_A = K\phi\omega_m = 1.59\cdot 1500\cdot \frac{2\pi}{60}=250V.$$
+We can now use the above equation to find 
+$$I_A = \frac{P_{dev}}{E_A} = \frac{7460W}{250V} = 29.84A.$$
+Alternatively, we note that we could have used the machine equation for $T_{dev}$ to find $I_A$, since 
+$$I_A = \frac{T_{dev}}{K\phi} = \frac{47.49}{1.59} = 29.84A.$$
+The applied voltage $V_T$ can then be found by applying KVL, since 
+$$-V_T + I_AR_A+E_A = 0.$$
+Solving this gives $V_T = (29.84A)(0.3\Omega) + 250V = 258.95V$. 
+We recall that the total developed power in the armature was $P_{dev} = 10HP = 7460W$. 
+The total input power is given by the power supplied by $V_T$ and the field losses. Thus, 
+$$P_{in} = V_TI_A + I_F^2R_F = (258.95)(29.84)+(3)^2(50) = 8177.1W.$$
+We can now calculate efficiency,
+$$\eta = \frac{P_{dev}}{P_{in}}\cdot 100\% = \frac{7460}{8177.1}\cdot100\% = 91.2\%.$$
+
+\subsection{Power and Torque: Developed vs. Output}
+At the mechanical output of the motor, we have electrical power from $P + I_AE_A$, and the developed mechanical power $P_{dev} = P =I_AE_A$ and $T_{dev} = \frac{P_{dev}}{\omega_m} = K\phi I_A$. Developed power and torque do not take into account rotational losses such as friction (bearings) and windage (wind resistance). In a practical motor, we have 
+rotational losses $P_{rot}$ and $T_{rot}$. Thus, 
+$$P_{out} = P_{dev}-P_{rot},$$
+$$T_{out} = T_{dev}-T_{rot}.$$
+If there are no rotational losses, then $P_{out} = P_{dev}$ and $T_{out} = T_{dev}$. 
+
+\section{April 7, 2017}
+\subsection{Shunt-Connected DC Machines}
+Suppose we are given a circuit with voltage source $V_T$ form $-$ to $+$ with current $I_L$ flowing to node $a$. Here, the path splits off into a path with a current of $I_F$ through resistors $R_{adj}$ and $R_F$ and inductor $L_F$. The other path has a current of $I_A$ through a resistor $R_A$, which then leads to a motor with $E_A$ from $+$ to $-$, $\omega_m$ and $T_{dev}$. These two paths join together and meet at the negative terminal of the voltage source. 
+
+In the above machine configuration, the field and armature circuits are connected in parallel. The variable resistor $R_{adj}$ is denoted with a line through a normal resistor symbol, and is available to adjust the torque-sped characteristic. The total input power is 
+$$P_{in} = V_TI_L,$$
+where $I_L$ is the total \textbf{line current}. Some of this creates the field. Power  that is absorbed by the field is dissipated as heat, 
+$$P_F = I_F^2(R_{adj} + R_F) = \frac{V_T^2}{R_{adj} + R_F}.$$
+The armature resistance similarly dissipates power as heat,
+$$P_A = I_A^2R_A = \frac{(V_T-E_A)^2}{R_A}.$$
+The remaining power is developed power $P_{dev}$, where
+$$P_{dev} + E_AI_A,$$
+$$T_{dev} = \frac{P_{dev}}{\omega_m} = \frac{E_AI_A}{\omega_m}.$$
+\begin{example}
+Consider a shunt-connected DC machine with $V_T=200V$, $R_F = 10\Omega$, $R_{adj} = 20\Omega$, and $R_A = 0.065\Omega$. This machine has rotational losses (friction) represented by constant torque $T_{rot}=12Nm$ (rotational power loss is proportional to speed, $P_{rot} = T_{rot}\omega_m$). From power tests on this machine when $I_F=10A$ and $n_m=1200rpm$, $E_A = 300V$. Additionally, the total required torque by the mechanical load is $T_{out} = 200Nm$. Find the motor speed and efficiency. 
+\end{example}
+In the field, since we are dealing with DC, we have 
+$$I_F= \frac{300}{20+10}  = 10A.$$
+From the information given at $n_m=1200rpm$, we know $I_F=10A$ and $E_A = 300V$. We use the basic machine equations. This gives
+$$K\phi = \frac{E_A}{\omega_m} = \frac{300}{1200\cdot \frac{2\pi}{60}} = 2.387.$$
+The total torque required by the load is $T_{out} = 200Nm$. Adding the rotational losses, we find 
+$$T_{dev} = T_{out} + T_{rot} = 200+12 = 212Nm.$$
+Our strategy now is to find $I_A$, $E_A$, and then the speed. Making use of the machine equation, 
+$$I_A = \frac{T_{dev}}{K\phi} = \frac{212}{2.387}=88.8.$$
+From KVL, we have
+$$E_A = V_T-I_AR_A = 300-(88.8)(0.065) = 294.2V.$$Therefore, 
+$$\omega_m = \frac{E_A}{K\phi} = \frac{294.2}{2.387} = 123.6rad/s,$$
+$$n_m = \omega_m\cdot \frac{60}{2\pi} = 1177rpm.$$
+We can then find efficiency after finding the input and output power,
+$$P_{out} = T_{out}\omega_m = (200)(123.6) = 24652W,$$
+$$P_{in} = V_TI_L = 300(I_F+I_A)=300(10+88.8) = 29640W,$$
+$$\eta = \frac{P_{out}}{P_{in}} \cdot 100\% = \frac{24652}{29640}\cdot100\% = 83.2\%.$$
+
+\begin{example}
+Suppose fan blades are attached to the shaft of the above motor. This adds $15Nm$ of additional torque loss, independent of speed. What is the new speed?
+\end{example}
+
+The total developed torque is now 
+$$T_{dev} = 200+12+15=227Nm,$$
+where $200Nm$ is from the load, and $27Nm$ is from rotational losses. The armature current increases to $$I_A = \frac{T_{dev}}{K\phi} = \frac{227}{2.387} = 95.1$$By KVL, we have 
+$$E_A = V_T-I_AR_A = 300-(95.1)(0.065) = 293.82V.$$
+Thus, 
+$$\omega_m = \frac{E_A}{K\phi} = \frac{293.82}{2.387} = 123.09rad/s,$$
+$$n_m = \omega_m\cdot\frac{60}{2\pi} = 1175.4rpm.$$
+
+\subsection{Separately Excited DC Machines}
+This configuration is similar to shunt-connected, except the field and armature have separate sources. That is, the field circuit consists of a voltage source $V_F$ from $-$ to $+$, through a resistor $R_F$ and inductor $L_F$ with a current $I_F$ leading back to the voltage source. The armature circuit consists of $V_T$ from $-$ to $+$ with current $I_A$ through resistor $R_A$ reaching a motor consuming $E_A$ before leading back to the voltage source. 
+
+\subsection{Permanent-Magnet DC Motors}
+This type of motor is similar to separately excited, except the field is produced by permanent magnets. It is useful in fractional-horsepower applications, such as for small fans, power windows, windshield wipers, and servos. 
+\subsection{Series-Connected DC Motors}
+This type of motor consists of the field and armature connected in series. Thus, instead of splitting into two paths, We encounter $V_T$ from $-$ to $+$, followed by $L_F$, $R_F$, $R_A$, and $E_A$ from $+$ to $-$. here, $L_F$ and $R_F$ constitute the field, while $R_A$ and $E_A$ form the armature. In this case, $I_A = I_F$. Series-connected motors  have high torque at low speeds. They are suitable for application such as electric automotive starter motors, electrical drills, screwdrivers, and handheld mixers. 
+
+\subsection{Torque-Speed Characteristics}
+All motors are characterized by torque-speed characteristics. 
+
+\section{Monday April 10, 2017}
+
+\subsection{Formulas for Final Exam}
+A separate formula sheet is not allowed for this course. The following machine equations and conversions will be given:
+$$T_{dev}  =K\phi I_A,$$
+$$E_A = K\phi \omega_m,$$
+$$P = T\omega_m,$$
+$$1HP = 746W,$$
+$$\omega_m(rad/s) = n_m(rev/min)\cdot 2\pi(rads/rev) \cdot \frac{1}{60}(min/s).$$
+
+Some things that will not be given but should be remembered are shown below. For an inductor, 
+$$V(t) = L\frac{\mathrm d i(t)}{\mathrm d t},$$
+$$Z_L = j\omega L.$$
+For a capacitor, 
+$$i(t) = C\frac{\mathrm d V(t)}{\mathrm d t},$$
+$$Z_C = \frac{1}{j \omega C}.$$
+For DC and AC power, we follow the passive reference convention. When current flows from $-$ to $+$ across a circuit element, then $P=-Vi$. When current flows from $+$ to $-$ across a circuit element, the $P=Vi$. Thus, $P>0$ when it is absorbed, and $P<0$ when it is delivered. 
+
+For AC power, $P$ is the power or average power, while $Q$ is the reactive power. They can be expressed as 
+$$P = \frac{V_{rms}^2}{R} = I_{rms}^2R,$$
+$$Q = \frac{V_{rms}^2}{X} = I_{rms}^2X,$$
+where $X = \|Z_L\| = \omega L$ for an inductor, and $X = \|Z_C\| = 1/\omega C$ for a capacitor. Alternatively, they are given as 
+$$P = I_{rms}V_{rms}\cos(\theta),$$
+$$Q= I_{rms}V_{rms}\sin(\theta),$$
+where $\theta = \theta_V-\theta_I$ is the power angle. Complex power is given by 
+$$\overline S = P + jQ = \frac{1}{2}\overline V \overline I.$$
+The power triangle where $P$ is adjacent, $Q$ is opposite, and $P_{app}$ is the hypotenuse with an angle of $\theta$ between $P$ and $P_{app}$ can be expressed as 
+$$P_{app} = \sqrt{P^2 +Q^2} = \|\overline S\|.$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
